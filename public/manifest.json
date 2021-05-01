@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "GCP - CDA",
+  "name": "Gerenciador de Códigos Penais - Cidade Alta",
   "icons": [
     {
       "src": "favicon.ico",
