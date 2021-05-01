@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { includeFiltersAction, filterCodeListThunk } from '../actions';
 
+import { BtnFiltrar } from '../styles';
+
 class Filters extends React.Component {
   constructor() {
     super();
@@ -51,13 +53,11 @@ class Filters extends React.Component {
           Filtrar por:
           <select id="filtro" name="filtro" onChange={ (e) => this.handleChange(e) }>
             {
-              filterTypes
-                .map((filter) => <option key={ filter }>{filter}</option>)
+              filterTypes.map((filter) => <option key={ filter }>{filter}</option>)
             }
           </select>
         </label>
         <label htmlFor="crescente">
-          Crescente
           <input
             type="radio"
             id="crescente"
@@ -65,9 +65,9 @@ class Filters extends React.Component {
             value="crescente"
             onChange={ (e) => this.handleChange(e) }
           />
+          Crescente
         </label>
         <label htmlFor="decrescente">
-          Decrescente
           <input
             type="radio"
             id="decrescente"
@@ -75,10 +75,12 @@ class Filters extends React.Component {
             value="decrescente"
             onChange={ (e) => this.handleChange(e) }
           />
+          Decrescente
         </label>
-        <button type="submit" onClick={ (e) => this.handleSubmit(e) }>
-          Filtrar!
-        </button>
+        <br />
+        <BtnFiltrar type="submit" onClick={ (e) => this.handleSubmit(e) }>
+          Filtrar
+        </BtnFiltrar>
       </>
     );
   }

@@ -7,11 +7,13 @@ import NoCodeList from '../components/NoCodeList';
 import AddCodeBtn from '../components/AddCodeBtn';
 import Filters from '../components/Filters';
 
+import { HomeStyle } from '../styles';
+
 class Home extends React.Component {
   render() {
     const { codeList } = this.props;
     return (
-      <>
+      <HomeStyle>
         <header>
           <h1>Código Penal</h1>
           <Filters />
@@ -24,7 +26,7 @@ class Home extends React.Component {
           }
           <AddCodeBtn />
         </main>
-      </>
+      </HomeStyle>
     );
   }
 }

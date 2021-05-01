@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { loginAction, saveReduxDataAction } from '../actions';
 import { fetchData } from '../services/apiRequest';
 
-import { Main } from '../styles';
+import { LoginStyle } from '../styles';
 import logo from '../imgs/logo.png';
 
 class Login extends React.Component {
@@ -61,7 +61,7 @@ class Login extends React.Component {
     const { nome, senha } = this.state;
     const { authenticated } = this.props;
     return (
-      <Main>
+      <LoginStyle>
         <section>
           <img src={ logo } alt="logotipo cidade alta - season 2" />
           <label htmlFor="nome">
@@ -89,7 +89,7 @@ class Login extends React.Component {
               : ''
           }
         </section>
-      </Main>
+      </LoginStyle>
     );
   }
 }
