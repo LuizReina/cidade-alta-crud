@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import PenalCodeTable from '../components/PenalCodeTable';
 import NoCodeList from '../components/NoCodeList';
 import AddCodeBtn from '../components/AddCodeBtn';
+import Filters from '../components/Filters';
 
 class Home extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class Home extends React.Component {
       <>
         <header>
           <h1>Código Penal</h1>
-          <h3>Filtros aqui</h3>
+          <Filters />
         </header>
         <main>
           {

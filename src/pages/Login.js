@@ -20,7 +20,7 @@ class Login extends React.Component {
     const { saveReduxData } = this.props;
     const fetchAndDispatchData = async () => {
       const penalCodeFetched = await fetchData('codigopenal');
-      const dataFetched = [penalCodeFetched];
+      const dataFetched = penalCodeFetched;
       saveReduxData(dataFetched);
     };
     fetchAndDispatchData();

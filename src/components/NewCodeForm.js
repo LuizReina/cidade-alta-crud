@@ -54,6 +54,7 @@ class NewCodeForm extends React.Component {
           Id:
           <input
             type="number"
+            id="id"
             name="id"
             onChange={ (e) => this.handleChange(e) }
           />
@@ -62,6 +63,7 @@ class NewCodeForm extends React.Component {
           Nome:
           <input
             type="text"
+            id="nome"
             name="nome"
             placeholder="Ex: Desacato, etc..."
             onChange={ (e) => this.handleChange(e) }
@@ -70,6 +72,7 @@ class NewCodeForm extends React.Component {
         <label htmlFor="descricao">
           Descrição:
           <textarea
+            id="descricao"
             name="descricao"
             rows="4"
             cols="50"
@@ -82,6 +85,7 @@ class NewCodeForm extends React.Component {
           Multa:
           <input
             type="number"
+            id="multa"
             name="multa"
             placeholder="Valor da multa"
             onChange={ (e) => this.handleChange(e) }
@@ -91,6 +95,7 @@ class NewCodeForm extends React.Component {
           Tempo de prisão:
           <input
             type="number"
+            id="tempoPrisao"
             name="tempoPrisao"
             placeholder="Tempo em meses"
             onChange={ (e) => this.handleChange(e) }
@@ -98,7 +103,7 @@ class NewCodeForm extends React.Component {
         </label>
         <label htmlFor="status">
           Status:
-          <select name="status" onChange={ (e) => this.handleChange(e) }>
+          <select id="status" name="status" onChange={ (e) => this.handleChange(e) }>
             <option>1</option>
             <option>2</option>
           </select>

@@ -65,6 +65,7 @@ class EditCodeForm extends React.Component {
           <input
             type="text"
             value={ nome }
+            id="nome"
             name="nome"
             placeholder="Ex: Desacato, etc..."
             onChange={ (e) => this.handleChange(e) }
@@ -74,6 +75,7 @@ class EditCodeForm extends React.Component {
           Descrição:
           <textarea
             name="descricao"
+            id="descricao"
             value={ descricao }
             rows="4"
             cols="50"
@@ -86,17 +88,19 @@ class EditCodeForm extends React.Component {
           Multa:
           <input
             type="number"
+            id="multa"
             value={ multa }
             name="multa"
             placeholder="Valor da multa"
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <label htmlFor="tempo">
+        <label htmlFor="tempoPrisao">
           Tempo de prisão:
           <input
             type="number"
             value={ tempoPrisao }
+            id="tempoPrisao"
             name="tempoPrisao"
             placeholder="Tempo em meses"
             onChange={ (e) => this.handleChange(e) }
@@ -104,7 +108,12 @@ class EditCodeForm extends React.Component {
         </label>
         <label htmlFor="status">
           Status:
-          <select name="status" value={ status } onChange={ (e) => this.handleChange(e) }>
+          <select
+            id="status"
+            name="status"
+            value={ status }
+            onChange={ (e) => this.handleChange(e) }
+          >
             <option>1</option>
             <option>2</option>
           </select>
