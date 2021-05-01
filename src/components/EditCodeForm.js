@@ -7,7 +7,7 @@ import { addNewCodeAction } from '../actions';
 
 import './newCodeForm.css';
 
-class NewCodeForm extends React.Component {
+class EditCodeForm extends React.Component {
   constructor() {
     super();
 
@@ -21,6 +21,23 @@ class NewCodeForm extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.fillInputsForEditing();
+  }
+
+  fillInputsForEditing() {
+    const { identifier, codeList } = this.props;
+    const codeToEdit = codeList.filter((code) => code.id === parseInt(identifier, 10));
+    this.setState({
+      id: codeToEdit[0].id,
+      nome: codeToEdit[0].nome,
+      descricao: codeToEdit[0].descricao,
+      multa: codeToEdit[0].multa,
+      tempoPrisao: codeToEdit[0].tempoPrisao,
+      status: codeToEdit[0].status,
+    });
+  }
+
   handleChange({ target }) {
     this.setState({
       [target.name]: target.value,
@@ -31,37 +48,23 @@ class NewCodeForm extends React.Component {
     const { addNewCode } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
-    const newCode = {
-      id: parseInt(id, 10),
-      nome,
-      descricao,
-      dataCriacao,
-      multa: parseInt(multa, 10),
-      tempoPrisao: parseInt(tempoPrisao, 10),
-      status: parseInt(status, 10),
-    };
-    const newCodeList = Object.assign(codeList);
+    const newCode = { id, nome, descricao, dataCriacao, multa, tempoPrisao, status };
+    const newCodeList = codeList.filter((code) => code.id !== id);
     newCodeList.push(newCode);
     addNewCode(newCodeList);
     e.preventDefault();
   }
 
   render() {
+    const { nome, descricao, multa, tempoPrisao, status } = this.state;
     const { codeList } = this.props;
     return (
       <form className="new-code-form">
-        <label htmlFor="id">
-          Id:
-          <input
-            type="number"
-            name="id"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
         <label htmlFor="nome">
           Nome:
           <input
             type="text"
+            value={ nome }
             name="nome"
             placeholder="Ex: Desacato, etc..."
             onChange={ (e) => this.handleChange(e) }
@@ -71,6 +74,7 @@ class NewCodeForm extends React.Component {
           Descrição:
           <textarea
             name="descricao"
+            value={ descricao }
             rows="4"
             cols="50"
             maxLength="500"
@@ -82,15 +86,17 @@ class NewCodeForm extends React.Component {
           Multa:
           <input
             type="number"
+            value={ multa }
             name="multa"
             placeholder="Valor da multa"
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <label htmlFor="tempoPrisao">
+        <label htmlFor="tempo">
           Tempo de prisão:
           <input
             type="number"
+            value={ tempoPrisao }
             name="tempoPrisao"
             placeholder="Tempo em meses"
             onChange={ (e) => this.handleChange(e) }
@@ -98,7 +104,7 @@ class NewCodeForm extends React.Component {
         </label>
         <label htmlFor="status">
           Status:
-          <select name="status" onChange={ (e) => this.handleChange(e) }>
+          <select name="status" value={ status } onChange={ (e) => this.handleChange(e) }>
             <option>1</option>
             <option>2</option>
           </select>
@@ -107,7 +113,7 @@ class NewCodeForm extends React.Component {
           type="submit"
           onClick={ (e) => this.handleSubmit(e, codeList) }
         >
-          Adicionar
+          Editar
         </button>
       </form>
     );
@@ -122,9 +128,10 @@ const mapDispatchToProps = (dispatch) => ({
   addNewCode: (newCode) => dispatch(addNewCodeAction(newCode)),
 });
 
-NewCodeForm.propTypes = {
+EditCodeForm.propTypes = {
   codeList: PropTypes.array.isRequired,
   addNewCode: PropTypes.func.isRequired,
+  identifier: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewCodeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EditCodeForm);
