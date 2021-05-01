@@ -4,12 +4,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { deleteCodeActionThunk } from '../actions';
+import { deleteCodeActionThunk, filterCodeListThunk } from '../actions';
 
 class PenalCodeTable extends React.Component {
+  componentDidMount() {
+    const {
+      codeList,
+      filters: { palavraChave, filtro, ordenacao },
+      filterCodeList,
+    } = this.props;
+    filterCodeList(codeList, palavraChave, filtro, ordenacao);
+  }
+
   render() {
     const { deleteCode } = this.props;
-    const { codeList } = this.props;
+    const { codeList, filteredCodeList } = this.props;
     return (
       <div>
         <table>
@@ -23,7 +32,7 @@ class PenalCodeTable extends React.Component {
           </thead>
           <tbody>
             {
-              codeList.map(({ id, nome, dataCriacao, multa, status }) => (
+              filteredCodeList.map(({ id, nome, dataCriacao, multa, status }) => (
                 <tr key={ id }>
                   <td>{nome}</td>
                   <td>{dataCriacao}</td>
@@ -61,15 +70,21 @@ class PenalCodeTable extends React.Component {
 
 const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
+  filteredCodeList: state.data.codigoPenalFiltrado,
+  filters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  filterCodeList: (...data) => dispatch(filterCodeListThunk(...data)),
   deleteCode: (id, codeList) => dispatch(deleteCodeActionThunk(id, codeList)),
 });
 
 PenalCodeTable.propTypes = {
   codeList: PropTypes.array.isRequired,
+  filteredCodeList: PropTypes.array.isRequired,
+  filters: PropTypes.object.isRequired,
   deleteCode: PropTypes.func.isRequired,
+  filterCodeList: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PenalCodeTable);

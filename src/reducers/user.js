@@ -1,4 +1,4 @@
-// import { SAVE_REDUX_DATA, DELETE_CODE, ADD_CODE } from '../actions';
+import { LOG_IN, LOG_OUT } from '../actions';
 
 const INITAL_STATE = {
   nome: '',
@@ -7,11 +7,11 @@ const INITAL_STATE = {
 
 const userReducer = (state = INITAL_STATE, action) => {
   switch (action.type) {
-  case 'LOG_IN':
+  case LOG_IN:
     return ({
       nome: action.payload, authenticated: true,
     });
-  case 'LOG_OUT':
+  case LOG_OUT:
     return ({
       nome: '', authenticated: false,
     });
