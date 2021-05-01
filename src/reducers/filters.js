@@ -2,7 +2,7 @@ import { INCLUDE_FILTERS } from '../actions';
 
 const INITAL_STATE = {
   palavraChave: '',
-  filtro: 'multa',
+  filtro: 'nome',
   ordenacao: 'crescente',
 };
 

@@ -6,6 +6,9 @@ export const LOG_OUT = 'LOG_OUT';
 export const INCLUDE_FILTERS = 'INCLUDE_FILTERS';
 export const UPDATE_FILTERED_LIST = 'UPDATE_FILTERED_LIST';
 
+const NEGATIVE_ORDER = -1;
+const POSITIVE_ORDER = 1;
+
 export const saveReduxDataAction = (data) => ({
   type: SAVE_REDUX_DATA,
   payload: data,
@@ -37,10 +40,12 @@ export const updateSortedListAction = (data) => ({
 
 export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispatch) => {
   if (filteredCodeList === undefined) return;
-  const filtroDecrescente = Object.assign([], filteredCodeList); // é o que tá funcionando agora
-  filtroDecrescente.sort((b, a) => (a[filtro] < b[filtro]) ? -1 : 1);
+  const filtroDecrescente = Object.assign([], filteredCodeList);
+  filtroDecrescente
+    .sort((b, a) => (a[filtro] < b[filtro] ? NEGATIVE_ORDER : POSITIVE_ORDER));
   const filtroCrescente = Object.assign([], filteredCodeList);
-  filtroCrescente.sort((a, b) => (a[filtro] < b[filtro]) ? -1 : 1);
+  filtroCrescente
+    .sort((a, b) => (a[filtro] < b[filtro] ? NEGATIVE_ORDER : POSITIVE_ORDER));
   switch (ordenacao) {
   case 'crescente':
     return dispatch(updateSortedListAction(filtroCrescente));
@@ -51,7 +56,8 @@ export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispa
   }
 };
 
-export const filterCodeListThunk = (codeList, palavraChave, filtro, ordenacao) => (dispatch) => {
+export const filterCodeListThunk = (codeList,
+  palavraChave, filtro, ordenacao) => (dispatch) => {
   const filtroNome = codeList.filter((code) => code.nome
     .toLowerCase()
     .includes(palavraChave.toLowerCase()));
