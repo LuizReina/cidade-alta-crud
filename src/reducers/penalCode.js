@@ -1,4 +1,4 @@
-import { SAVE_REDUX_DATA, DELETE_CODE } from '../actions';
+import { SAVE_REDUX_DATA, DELETE_CODE, ADD_CODE } from '../actions';
 
 const INITAL_STATE = {
   codigoPenal: [],
@@ -11,7 +11,7 @@ const penalCodeReducer = (state = INITAL_STATE, action) => {
     return ({
       ...state, codigoPenal: action.payload[0], status: action.payload[1],
     });
-  case DELETE_CODE:
+  case DELETE_CODE || ADD_CODE:
     return ({
       ...state, codigoPenal: action.payload,
     });
