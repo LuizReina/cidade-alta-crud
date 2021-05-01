@@ -1,7 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { includeFiltersAction } from '../actions';
+import { includeFiltersAction, filterCodeListThunk } from '../actions';
 
 class Filters extends React.Component {
   constructor() {
@@ -10,7 +11,7 @@ class Filters extends React.Component {
     this.state = {
       palavraChave: '',
       filtro: 'nome',
-      ordenacao: 'orcrescente',
+      ordenacao: 'crescente',
     };
   }
 
@@ -20,11 +21,16 @@ class Filters extends React.Component {
     });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     const { palavraChave, filtro, ordenacao } = this.state;
-    const { includeFilters } = this.props;
+    const {
+      includeFilters,
+      codeList,
+      filterCodeList,
+    } = this.props;
     e.preventDefault();
-    includeFilters({ palavraChave, filtro, ordenacao });
+    await includeFilters({ palavraChave, filtro, ordenacao });
+    filterCodeList(codeList, palavraChave, filtro, ordenacao);
   }
 
   render() {
@@ -78,12 +84,19 @@ class Filters extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  codeList: state.data.codigoPenal,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   includeFilters: (filters) => dispatch(includeFiltersAction(filters)),
+  filterCodeList: (...data) => dispatch(filterCodeListThunk(...data)),
 });
 
 Filters.propTypes = {
+  codeList: PropTypes.object.isRequired,
   includeFilters: PropTypes.func.isRequired,
+  filterCodeList: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);
