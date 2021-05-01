@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NewCodeForm from '../components/NewCodeForm';
 
 class NewCode extends React.Component {
@@ -10,6 +11,9 @@ class NewCode extends React.Component {
         </header>
         <main>
           <NewCodeForm />
+          <button type="button">
+            <Link to="/home">Voltar</Link>
+          </button>
         </main>
       </>
     );

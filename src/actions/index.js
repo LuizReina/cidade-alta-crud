@@ -1,10 +1,21 @@
 export const SAVE_REDUX_DATA = 'SAVE_REDUX_DATA';
 export const DELETE_CODE = 'DELETE_CODE';
 export const ADD_CODE = 'ADD_CODE';
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
 
 export const saveReduxDataAction = (data) => ({
   type: SAVE_REDUX_DATA,
   payload: data,
+});
+
+export const loginAction = (nome) => ({
+  type: LOG_IN,
+  payload: nome,
+});
+
+export const logoutAction = () => ({
+  type: LOG_OUT,
 });
 
 export const addNewCodeAction = (data) => ({

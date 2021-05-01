@@ -1,13 +1,12 @@
+/* eslint-disable no-alert */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { deleteCodeActionThunk } from '../actions';
 
 class PenalCodeTable extends React.Component {
-  editCode(id) {
-    console.log(id);
-  }
-
   render() {
     const { deleteCode } = this.props;
     const { codeList } = this.props;
@@ -31,18 +30,24 @@ class PenalCodeTable extends React.Component {
                   <td>{multa}</td>
                   <td>{status === 1 ? 'Ativo' : 'Inativo'}</td>
                   <td>
+                    <Link to={ `/editcode/${id}` }>Editar</Link>
+                  </td>
+                  <td>
                     <button
                       type="button"
-                      onClick={ () => this.editCode(id) }
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      onClick={ () => deleteCode(id, codeList) }
+                      onClick={ () => {
+                        if (window.confirm(
+                          'Tem certeza disso? Essa ação não pode ser desfeita.',
+                        )) {
+                          deleteCode(id, codeList);
+                        }
+                      } }
                     >
                       Excluir
                     </button>
+                  </td>
+                  <td>
+                    <Link to={ `/codedetails/${id}` }>Detalhes</Link>
                   </td>
                 </tr>
               ))
@@ -63,9 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 PenalCodeTable.propTypes = {
-  codeList: PropTypes.shape({
-    map: PropTypes.func.isRequired,
-  }).isRequired,
+  codeList: PropTypes.array.isRequired,
   deleteCode: PropTypes.func.isRequired,
 };
 
