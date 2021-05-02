@@ -1,11 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import HomepageBtn from './HomepageBtn';
 import { updateCodeListsAction } from '../actions';
 
-import './newCodeForm.css';
+const THREE_SECONDS = 3000;
 
 class NewCodeForm extends React.Component {
   constructor() {
@@ -18,16 +18,19 @@ class NewCodeForm extends React.Component {
       multa: 0,
       tempoPrisao: 0,
       status: 1,
+      isConfirmed: false,
     };
   }
 
-  handleChange({ target }) {
+  handleChange({ target: { name, value } }) {
     this.setState({
-      [target.name]: target.value,
+      [name]: value,
     });
   }
 
   handleSubmit(e, codeList) {
+    e.preventDefault();
+    this.confirmEdit();
     const { addNewCode } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
@@ -43,77 +46,165 @@ class NewCodeForm extends React.Component {
     const newCodeList = Object.assign([], codeList);
     newCodeList.push(newCode);
     addNewCode(newCodeList);
-    e.preventDefault();
   }
 
-  render() {
+  confirmEdit() {
+    this.setState({ isConfirmed: true });
+    setTimeout(() => { this.setState({ isConfirmed: false }); }, THREE_SECONDS);
+  }
+
+  confirmationSpan() {
+    const { isConfirmed } = this.state;
+    if (isConfirmed) return <span>Código alterado com sucesso!</span>;
+    return '';
+  }
+
+  renderId() {
+    return (
+      <label htmlFor="id">
+        <br />
+        Id:
+        <br />
+        <input
+          type="number"
+          id="id"
+          name="id"
+          min="0"
+          placeholder="Número identificador"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderName() {
+    return (
+      <label htmlFor="nome">
+        <br />
+        Nome:
+        <br />
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Ex: Desacato, etc..."
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderDescription() {
+    return (
+      <label htmlFor="descricao">
+        <br />
+        Descrição:
+        <br />
+        <textarea
+          id="descricao"
+          name="descricao"
+          rows="4"
+          cols="50"
+          maxLength="500"
+          placeholder="Máximo de 500 caracteres"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderFine() {
+    return (
+      <label htmlFor="multa">
+        <br />
+        Multa:
+        <br />
+        <input
+          type="number"
+          id="multa"
+          name="multa"
+          min="0"
+          placeholder="Valor da multa"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderJailTime() {
+    return (
+      <label htmlFor="tempoPrisao">
+        <br />
+        Tempo de prisão:
+        <br />
+        <input
+          type="number"
+          id="tempoPrisao"
+          name="tempoPrisao"
+          min="0"
+          placeholder="Tempo em meses"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderStatus() {
+    return (
+      <label htmlFor="status">
+        <br />
+        Status:
+        <br />
+        <select id="status" name="status" onChange={ (e) => this.handleChange(e) }>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </label>
+    );
+  }
+
+  renderBtns() {
     const { codeList } = this.props;
     return (
-      <form className="new-code-form">
-        <label htmlFor="id">
-          Id:
-          <input
-            type="number"
-            id="id"
-            name="id"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="nome">
-          Nome:
-          <input
-            type="text"
-            id="nome"
-            name="nome"
-            placeholder="Ex: Desacato, etc..."
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="descricao">
-          Descrição:
-          <textarea
-            id="descricao"
-            name="descricao"
-            rows="4"
-            cols="50"
-            maxLength="500"
-            placeholder="Máximo de 500 caracteres"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="multa">
-          Multa:
-          <input
-            type="number"
-            id="multa"
-            name="multa"
-            placeholder="Valor da multa"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="tempoPrisao">
-          Tempo de prisão:
-          <input
-            type="number"
-            id="tempoPrisao"
-            name="tempoPrisao"
-            placeholder="Tempo em meses"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="status">
-          Status:
-          <select id="status" name="status" onChange={ (e) => this.handleChange(e) }>
-            <option>1</option>
-            <option>2</option>
-          </select>
-        </label>
+      <section>
         <button
           type="submit"
           onClick={ (e) => this.handleSubmit(e, codeList) }
         >
           Adicionar
         </button>
+        <HomepageBtn />
+      </section>
+    );
+  }
+
+  render() {
+    return (
+      <form>
+        {
+          this.renderId()
+        }
+        {
+          this.renderName()
+        }
+        {
+          this.renderDescription()
+        }
+        {
+          this.renderFine()
+        }
+        {
+          this.renderJailTime()
+        }
+        {
+          this.renderStatus()
+        }
+        {
+          this.renderBtns()
+        }
+        {
+          this.confirmationSpan()
+        }
       </form>
     );
   }

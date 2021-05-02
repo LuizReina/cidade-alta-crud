@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { deleteCodeActionThunk, filterCodeListThunk } from '../actions';
 
-import { BtnExcluir } from '../styles';
+import { BtnExcluir, PaginationBtns } from '../styles';
 
 const NUMBER_OF_RESULTS_PER_PAGE = 15;
 
@@ -31,7 +31,9 @@ class PenalCodeTable extends React.Component {
       <tbody>
         {
           filteredCodeList.map(({ id, nome, dataCriacao, multa, status }) => (
-            <tr key={ id }>
+            <tr
+              key={ nome }
+            >
               <td>{nome}</td>
               <td>{dataCriacao}</td>
               <td>{`R$${parseInt(multa, 10).toFixed(2)}`}</td>
@@ -61,19 +63,19 @@ class PenalCodeTable extends React.Component {
     );
   }
 
-  renderTableFooter() {
+  renderPaginationBtns() {
     const { filteredCodeList } = this.props;
     const totalPages = Math.ceil(filteredCodeList.length / NUMBER_OF_RESULTS_PER_PAGE);
     const paginationBtns = [];
     for (let index = 1; index <= totalPages; index += 1) {
-      paginationBtns.push(<button type="button">{index}</button>);
+      paginationBtns.push(<button key={ index } type="button">{index}</button>);
     }
     return (
-      <tfoot>
+      <PaginationBtns>
         {
           paginationBtns.map((element) => element)
         }
-      </tfoot>
+      </PaginationBtns>
     );
   }
 
@@ -87,10 +89,10 @@ class PenalCodeTable extends React.Component {
           {
             this.renderTableBody()
           }
-          {
-            this.renderTableFooter()
-          }
         </table>
+        {
+          this.renderPaginationBtns()
+        }
       </div>
     );
   }

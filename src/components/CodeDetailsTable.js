@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import HomepageBtn from './HomepageBtn';
-import './codeDetails.css';
 
 class CodeDetailsTable extends React.Component {
   constructor() {
@@ -50,37 +49,21 @@ class CodeDetailsTable extends React.Component {
     return (
       existsID
         ? (
-          <section className="code-details-container">
-            <section className="code-details-row-container">
-              <section className="code-details-row">
-                <h3>ID: </h3>
-                <p>{id}</p>
-              </section>
-              <section className="code-details-row">
-                <h3>Nome: </h3>
-                <p>{nome}</p>
-              </section>
-              <section className="code-details-row">
-                <h3>Descrição: </h3>
-                <p>{descricao}</p>
-              </section>
-              <section className="code-details-row">
-                <h3>Multa: </h3>
-                <p>{`R$ ${multa.toFixed(2)}`}</p>
-              </section>
-              <section className="code-details-row">
-                <h3>Tempo de prisão: </h3>
-                <p>{`${tempoPrisao} meses`}</p>
-              </section>
-              <section className="code-details-row">
-                <h3>Status: </h3>
-                <p>{status === 1 ? 'Ativo' : 'Inativo'}</p>
-              </section>
-              <section className="code-details-row">
-                <h3>Data de criação: </h3>
-                <p>{dataCriacao}</p>
-              </section>
-            </section>
+          <section>
+            <h2>ID: </h2>
+            <p>{id}</p>
+            <h2>Nome: </h2>
+            <p>{nome}</p>
+            <h2>Descrição: </h2>
+            <p>{descricao}</p>
+            <h2>Multa: </h2>
+            <p>{`R$ ${multa.toFixed(2)}`}</p>
+            <h2>Tempo de prisão: </h2>
+            <p>{`${tempoPrisao} meses`}</p>
+            <h2>Status: </h2>
+            <p>{status === 1 ? 'Ativo' : 'Inativo'}</p>
+            <h2>Data de criação: </h2>
+            <p>{dataCriacao}</p>
             <HomepageBtn />
           </section>
         )

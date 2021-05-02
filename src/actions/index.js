@@ -1,5 +1,6 @@
-export const SAVE_FULL_CODE_LIST = 'SAVE_FULL_CODE_LIST';
 export const UPDATE_CODE_LISTS = 'UPDATE_CODE_LISTS';
+export const START_LOADING = 'START_LOADING';
+export const STOP_LOADING = 'STOP_LOADING';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const INCLUDE_FILTERS = 'INCLUDE_FILTERS';
@@ -8,9 +9,12 @@ export const UPDATE_FILTERED_LIST = 'UPDATE_FILTERED_LIST';
 const NEGATIVE_ORDER = -1;
 const POSITIVE_ORDER = 1;
 
-export const saveFullCodeListAction = (data) => ({
-  type: SAVE_FULL_CODE_LIST,
-  payload: data,
+export const startLoadingAction = () => ({
+  type: START_LOADING,
+});
+
+export const stopLoadingAction = () => ({
+  type: STOP_LOADING,
 });
 
 export const loginAction = (nome) => ({
@@ -65,7 +69,7 @@ export const filterCodeListThunk = (codeList,
   const filtroNome = codeList.filter((code) => code.nome
     .toLowerCase()
     .includes(palavraChave.toLowerCase()));
-  const filtroMulta = codeList.filter((code) => code.multa
+  const filtroMulta = codeList.filter((code) => parseInt(code.multa, 10)
     .toFixed(2)
     .toString()
     .includes(palavraChave));

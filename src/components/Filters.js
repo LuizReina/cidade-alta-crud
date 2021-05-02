@@ -89,6 +89,7 @@ class Filters extends React.Component {
 
 const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
+  filters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -97,7 +98,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Filters.propTypes = {
-  codeList: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
+  codeList: PropTypes.array.isRequired,
   includeFilters: PropTypes.func.isRequired,
   filterCodeList: PropTypes.func.isRequired,
 };
