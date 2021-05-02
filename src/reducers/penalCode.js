@@ -1,12 +1,17 @@
-import { UPDATE_CODE_LISTS, UPDATE_FILTERED_LIST } from '../actions';
-import INITAL_STATE_MOCKED from '../mockedData';
+import {
+  UPDATE_CODE_LISTS,
+  UPDATE_FILTERED_LIST,
+  UPDATE_PAGINATION_LIST,
+} from '../actions';
+import INITIAL_STATE_MOCKED from '../mockedData';
 
-const INITAL_STATE = {
+const INITIAL_STATE = {
   codigoPenal: [],
   codigoPenalFiltrado: [],
+  codigoPenalPaginado: [],
 };
 
-const penalCodeReducer = (state = INITAL_STATE_MOCKED, action) => {
+const penalCodeReducer = (state = INITIAL_STATE_MOCKED, action) => {
   switch (action.type) {
   case UPDATE_CODE_LISTS:
     return ({
@@ -15,6 +20,10 @@ const penalCodeReducer = (state = INITAL_STATE_MOCKED, action) => {
   case UPDATE_FILTERED_LIST:
     return ({
       ...state, codigoPenalFiltrado: action.payload,
+    });
+  case UPDATE_PAGINATION_LIST:
+    return ({
+      ...state, codigoPenalPaginado: action.payload,
     });
   default:
     return state;

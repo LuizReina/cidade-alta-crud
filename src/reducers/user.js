@@ -1,28 +1,39 @@
-import { LOG_IN, LOG_OUT, START_LOADING, STOP_LOADING } from '../actions';
+import {
+  LOG_IN,
+  LOG_OUT,
+  START_LOADING,
+  STOP_LOADING,
+  UPDATE_PAGE_NUMBER,
+} from '../actions';
 
-const INITAL_STATE = {
+const INITIAL_STATE = {
   nome: '',
   authenticated: false,
   isLoading: false,
+  paginaAtual: 0,
 };
 
-const userReducer = (state = INITAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case START_LOADING:
     return ({
-      isLoading: true,
+      ...state, isLoading: true,
     });
   case STOP_LOADING:
     return ({
-      isLoading: false,
+      ...state, isLoading: false,
     });
   case LOG_IN:
     return ({
-      nome: action.payload, authenticated: true, isLoading: false,
+      ...state, nome: action.payload, authenticated: true, isLoading: false,
     });
   case LOG_OUT:
     return ({
       nome: '', authenticated: false,
+    });
+  case UPDATE_PAGE_NUMBER:
+    return ({
+      ...state, paginaAtual: action.payload - 1,
     });
   default:
     return state;

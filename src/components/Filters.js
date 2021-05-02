@@ -2,9 +2,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { includeFiltersAction, filterCodeListThunk } from '../actions';
+import {
+  includeFiltersAction,
+  filterCodeListThunk,
+  updatePaginationListAction,
+  updateActualPageAction,
+} from '../actions';
 
-import { BtnFiltrar } from '../styles';
+import { BtnFiltrar, ActiveFilters } from '../styles';
 
 class Filters extends React.Component {
   constructor() {
@@ -15,6 +20,25 @@ class Filters extends React.Component {
       filtro: 'nome',
       ordenacao: 'crescente',
     };
+  }
+
+  updatePagination() {
+    const { filteredCodeList, updatePaginationList, pages } = this.props;
+    const codigoPenalPaginado = [];
+    for (let index = 0; index < filteredCodeList.length; index += pages) {
+      const pagina = [];
+      filteredCodeList.map((code, indexMap) => {
+        if (index <= indexMap && indexMap - index < pages) {
+          pagina.push(code);
+        }
+        return '';
+      });
+      codigoPenalPaginado.push(pagina);
+    }
+    if (codigoPenalPaginado.length === 0) {
+      codigoPenalPaginado.push([]);
+    }
+    updatePaginationList(codigoPenalPaginado);
   }
 
   async handleChange({ target: { name, value } }) {
@@ -30,34 +54,46 @@ class Filters extends React.Component {
       includeFilters,
       codeList,
       filterCodeList,
+      updateActualPage,
     } = this.props;
-    // e.preventDefault();
     await includeFilters({ palavraChave, filtro, ordenacao });
-    filterCodeList(codeList, palavraChave, filtro, ordenacao);
+    await filterCodeList(codeList, palavraChave, filtro, ordenacao);
+    await updateActualPage(1);
+    this.updatePagination();
   }
 
-  render() {
+  renderKeyWord() {
     const { palavraChave } = this.state;
+    return (
+      <label htmlFor="palavraChave">
+        Palavra-chave:
+        <input
+          value={ palavraChave }
+          id="palavraChave"
+          name="palavraChave"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderFilterType() {
     const filterTypes = ['Nome', 'Multa', 'Status'];
     return (
+      <label htmlFor="filtro">
+        Filtrar por:
+        <select id="filtro" name="filtro" onChange={ (e) => this.handleChange(e) }>
+          {
+            filterTypes.map((filter) => <option key={ filter }>{filter}</option>)
+          }
+        </select>
+      </label>
+    );
+  }
+
+  renderRadioBtns() {
+    return (
       <>
-        <label htmlFor="palavraChave">
-          Palavra-chave:
-          <input
-            value={ palavraChave }
-            id="palavraChave"
-            name="palavraChave"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="filtro">
-          Filtrar por:
-          <select id="filtro" name="filtro" onChange={ (e) => this.handleChange(e) }>
-            {
-              filterTypes.map((filter) => <option key={ filter }>{filter}</option>)
-            }
-          </select>
-        </label>
         <label htmlFor="crescente">
           <input
             type="radio"
@@ -78,10 +114,37 @@ class Filters extends React.Component {
           />
           Decrescente
         </label>
+      </>
+    );
+  }
+
+  render() {
+    const { palavraChave, filtro, ordenacao } = this.state;
+    return (
+      <>
+        {
+          this.renderKeyWord()
+        }
+        {
+          this.renderFilterType()
+        }
+        {
+          this.renderRadioBtns()
+        }
         <br />
-        <BtnFiltrar type="button" onClick={ () => this.handleSubmit() }>
+        <BtnFiltrar
+          type="button"
+          onClick={ () => this.handleSubmit() }
+        >
           Filtrar
         </BtnFiltrar>
+        <ActiveFilters>
+          {
+            `${palavraChave.length === 0
+              ? 'Filtros ativos: '
+              : `Filtros ativos: ${palavraChave} | `} ${filtro} | ${ordenacao}`
+          }
+        </ActiveFilters>
       </>
     );
   }
@@ -89,19 +152,25 @@ class Filters extends React.Component {
 
 const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
+  filteredCodeList: state.data.codigoPenalFiltrado,
   filters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   includeFilters: (filters) => dispatch(includeFiltersAction(filters)),
   filterCodeList: (...data) => dispatch(filterCodeListThunk(...data)),
+  updatePaginationList: (pageNumber) => dispatch(updatePaginationListAction(pageNumber)),
+  updateActualPage: (pageNumber) => dispatch(updateActualPageAction(pageNumber)),
 });
 
 Filters.propTypes = {
-  filters: PropTypes.object.isRequired,
   codeList: PropTypes.array.isRequired,
+  filteredCodeList: PropTypes.array.isRequired,
   includeFilters: PropTypes.func.isRequired,
   filterCodeList: PropTypes.func.isRequired,
+  updatePaginationList: PropTypes.func.isRequired,
+  updateActualPage: PropTypes.func.isRequired,
+  pages: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

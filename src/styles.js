@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import backgroundLogin from './imgs/wallpaper.jpg';
 import backgroundHome from './imgs/wallpaperPolice.jpg';
 
-export const LoginStyle = styled.body`
+export const LoginStyle = styled.main`
   align-items: center;
   background-image: url(${backgroundLogin});
   display: flex;
@@ -137,6 +137,16 @@ export const HomeStyle = styled.main`
   }
 `;
 
+export const ActiveFilters = styled.p`
+  background-color: lightgray;
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 6px;
+  padding: 0.5vh;
+  /* width: 15vw; */
+`;
+
 export const BtnExcluir = styled.button`
   background-color: transparent;
   border: none;
@@ -152,7 +162,7 @@ export const BtnFiltrar = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 2vh;
-  margin: 1.5vh 1vw 3vh;
+  margin: 1.5vh 1vw 1vh;
   padding: 0.3vh 0.5vw;
   width: 7vw;
   transition: 0.8s all ease-out;
