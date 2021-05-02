@@ -45,7 +45,7 @@ export const LoginStyle = styled.body`
 
   button {
   background: transparent;
-  border: ${(props) => (props.primary ? '1px solid lightblue' : '1px solid black')};
+  border: 1px solid black;
   border-radius: 3px;
   cursor: pointer;
   font-size: 16px;
@@ -54,8 +54,8 @@ export const LoginStyle = styled.body`
   transition: 0.8s all ease-out;
     &:hover {
       color: black;
-      background-color: ${(props) => (props.primary ? 'black' : 'lightblue')};
-      border: ${(props) => (props.primary ? '1px solid lightblue' : '1px solid black')};
+      background-color:lightblue;
+      border: 1px solid black;
     }
   }
 
@@ -147,20 +147,183 @@ export const BtnExcluir = styled.button`
 `;
 
 export const BtnFiltrar = styled.button`
+  background-color: lightgray;
+  border: 1px solid black;
   border-radius: 5px;
+  cursor: pointer;
   font-size: 2vh;
   margin: 1.5vh 1vw 3vh;
   padding: 0.3vh 0.5vw;
   width: 7vw;
+  transition: 0.8s all ease-out;
+    &:hover {
+      color: black;
+      background-color: gray;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
 `;
 
 export const AddCodeBtnStyle = styled.section`
+  a {
+    align-items: center;
+    background-color: lightgrey;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    margin: 1vh 1vw;
+    height: 5vh;
+    justify-content: center;
+    padding: 0.3vh 1vw;
+    width: 15vw;
+    transition: 0.8s all ease-out;
+    &:hover {
+      color: white;
+      background-color: green;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+  }
+`;
+
+export const PaginationBtns = styled.footer`
   align-items: center;
-  background-color: lightgrey;
-  border-radius: 7px;
   display: flex;
-  margin: 1vh 1vw;
-  height: 5vh;
-  padding: 0.3vh 1vw;
-  width: 15vw;
+  justify-content: center;
+
+  button {
+    background-color: transparent;
+    border: solid 1px red;
+    border-radius: 100%;
+    color: black;
+    cursor: pointer;
+    font-weight: 700;
+    margin: 1vh 0.3vw;
+    transition: 0.5s all ease-out;
+    &:hover {
+      color: white;
+      background-color: ${(props) => (props.primary ? 'black' : 'red')};
+      border: ${(props) => (props.primary ? '1px solid lightblue' : '1px solid black')};
+    }
+  }
+`;
+
+export const CodeFormsBody = styled.main`
+  align-items: center;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  height: 98vh;
+  text-align: center;
+  width: 99vw;
+
+  label {
+    font-size: 30px;
+  }
+
+  section {
+    flex-direction: row;
+    margin: 3vh;
+  }
+
+  input, textarea {
+    font-size: 18px;
+    height: 2vh;
+    margin: 8px 0;
+    padding: 0.8vh;
+    width: 20vw;
+  }
+
+  input {
+    text-align: center;
+  }
+
+  textarea {
+    height: 20vh;
+  }
+
+  select {
+    font-size: 18px;
+    padding: 0.2vh 0.5vh;
+    width: 50px;
+  }
+
+  a, button {
+    background-color: lightgray;
+    border: solid 1px black;
+    border-radius: 5px;
+    color: black;
+    font-size: 25px;
+    margin: 10px;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: 0.8s all ease-out;
+    &:hover {
+      color: white;
+      background-color: green;
+      border: 1px solid black;
+    }
+  }
+
+  a {
+    padding: 6px 34.545px;
+    &:hover {
+      color: white;
+      background-color: red;
+      border: 1px solid black;
+    }
+  }
+
+  span {
+    color: red;
+    font-size: 2vh;
+    font-weight: 700;
+  }
+`;
+
+export const CodeDetailsBody = styled.main`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 98vh;
+  width: 99vw;
+
+  main {
+    width: 40%;
+  }
+
+  section {
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 25px;
+    margin: 5px;
+  }
+
+  p {
+    color: rebeccapurple;
+    font-size: 23px;
+    font-weight: 700;
+  }
+
+  a {
+    background-color: lightgray;
+    border: solid 1px black;
+    border-radius: 5px;
+    color: black;
+    font-size: 25px;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: 0.8s all ease-out;
+    &:hover {
+      color: white;
+      background-color: red;
+      border: 1px solid black;
+    }
+  }
+`;
+
+export const Img = styled.img`
+  position: absolute;
 `;

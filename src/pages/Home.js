@@ -11,7 +11,7 @@ import { HomeStyle } from '../styles';
 
 class Home extends React.Component {
   render() {
-    const { codeList } = this.props;
+    const { filteredCodeList } = this.props;
     return (
       <HomeStyle>
         <header>
@@ -20,7 +20,7 @@ class Home extends React.Component {
         </header>
         <main>
           {
-            codeList.length <= 0
+            filteredCodeList.length <= 0
               ? <NoCodeList />
               : <PenalCodeTable />
           }
@@ -32,11 +32,11 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  codeList: state.data.codigoPenal,
+  filteredCodeList: state.data.codigoPenalFiltrado,
 });
 
 Home.propTypes = {
-  codeList: PropTypes.array.isRequired,
+  filteredCodeList: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Home);

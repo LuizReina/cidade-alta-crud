@@ -17,20 +17,21 @@ class Filters extends React.Component {
     };
   }
 
-  handleChange({ target }) {
+  async handleChange({ target: { name, value } }) {
     this.setState({
-      [target.name]: target.value.toLowerCase(),
-    });
+      [name]: await value.toLowerCase(),
+    }, () => {});
+    if (name === 'palavraChave') this.handleSubmit();
   }
 
-  async handleSubmit(e) {
+  async handleSubmit() {
     const { palavraChave, filtro, ordenacao } = this.state;
     const {
       includeFilters,
       codeList,
       filterCodeList,
     } = this.props;
-    e.preventDefault();
+    // e.preventDefault();
     await includeFilters({ palavraChave, filtro, ordenacao });
     filterCodeList(codeList, palavraChave, filtro, ordenacao);
   }
@@ -78,7 +79,7 @@ class Filters extends React.Component {
           Decrescente
         </label>
         <br />
-        <BtnFiltrar type="submit" onClick={ (e) => this.handleSubmit(e) }>
+        <BtnFiltrar type="button" onClick={ () => this.handleSubmit() }>
           Filtrar
         </BtnFiltrar>
       </>
@@ -88,6 +89,7 @@ class Filters extends React.Component {
 
 const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
+  filters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -96,7 +98,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Filters.propTypes = {
-  codeList: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
+  codeList: PropTypes.array.isRequired,
   includeFilters: PropTypes.func.isRequired,
   filterCodeList: PropTypes.func.isRequired,
 };

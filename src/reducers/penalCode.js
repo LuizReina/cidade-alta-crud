@@ -1,42 +1,16 @@
-import { SAVE_REDUX_DATA, DELETE_CODE, ADD_CODE, UPDATE_FILTERED_LIST } from '../actions';
+import { UPDATE_CODE_LISTS, UPDATE_FILTERED_LIST } from '../actions';
+import INITAL_STATE_MOCKED from '../mockedData';
 
 const INITAL_STATE = {
-  // codigoPenal: [{
-  //   id: 1,
-  //   nome: 'Baguncinha',
-  //   descricao: 'Baguncinha na california',
-  //   dataCriacao: 1994,
-  //   multa: 15000,
-  //   tempoPrisao: 30,
-  //   status: 1,
-  // }],
-  // codigoPenalFiltrado: [{
-  //   id: 1,
-  //   nome: 'Baguncinha',
-  //   descricao: 'Baguncinha na california',
-  //   dataCriacao: 1994,
-  //   multa: 15000,
-  //   tempoPrisao: 30,
-  //   status: 1,
-  // }],
   codigoPenal: [],
   codigoPenalFiltrado: [],
-  status: [],
 };
 
-const penalCodeReducer = (state = INITAL_STATE, action) => {
+const penalCodeReducer = (state = INITAL_STATE_MOCKED, action) => {
   switch (action.type) {
-  case SAVE_REDUX_DATA:
+  case UPDATE_CODE_LISTS:
     return ({
-      ...state, codigoPenal: action.payload,
-    });
-  case ADD_CODE:
-    return ({
-      ...state, codigoPenal: action.payload,
-    });
-  case DELETE_CODE:
-    return ({
-      ...state, codigoPenal: action.payload,
+      ...state, codigoPenal: action.payload, codigoPenalFiltrado: action.payload,
     });
   case UPDATE_FILTERED_LIST:
     return ({

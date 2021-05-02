@@ -1,11 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addNewCodeAction } from '../actions';
+import HomepageBtn from './HomepageBtn';
+import { updateCodeListsAction } from '../actions';
 
-import './newCodeForm.css';
+const THREE_SECONDS = 3000;
 
 class EditCodeForm extends React.Component {
   constructor() {
@@ -18,6 +18,7 @@ class EditCodeForm extends React.Component {
       multa: 0,
       tempoPrisao: 0,
       status: 1,
+      isConfirmed: false,
     };
   }
 
@@ -38,92 +39,182 @@ class EditCodeForm extends React.Component {
     });
   }
 
-  handleChange({ target }) {
+  handleChange({ target: { name, value } }) {
     this.setState({
-      [target.name]: target.value,
+      [name]: value,
     });
   }
 
   handleSubmit(e, codeList) {
-    const { addNewCode } = this.props;
+    e.preventDefault();
+    this.confirmEdit();
+    const { editCode } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
-    const newCode = { id, nome, descricao, dataCriacao, multa, tempoPrisao, status };
+    const newCode = {
+      id: parseInt(id, 10),
+      nome,
+      descricao,
+      dataCriacao,
+      multa: parseInt(multa, 10),
+      tempoPrisao: parseInt(tempoPrisao, 10),
+      status: parseInt(status, 10),
+    };
     const newCodeList = codeList.filter((code) => code.id !== id);
     newCodeList.push(newCode);
-    addNewCode(newCodeList);
-    e.preventDefault();
+    editCode(newCodeList);
   }
 
-  render() {
-    const { nome, descricao, multa, tempoPrisao, status } = this.state;
+  confirmEdit() {
+    this.setState({ isConfirmed: true });
+    setTimeout(() => { this.setState({ isConfirmed: false }); }, THREE_SECONDS);
+  }
+
+  confirmationSpan() {
+    const { isConfirmed } = this.state;
+    if (isConfirmed) return <span>Código alterado com sucesso!</span>;
+    return '';
+  }
+
+  renderName() {
+    const { nome } = this.state;
+    return (
+      <label htmlFor="nome">
+        <br />
+        Nome
+        <br />
+        <input
+          type="text"
+          value={ nome }
+          id="nome"
+          name="nome"
+          placeholder="Ex: Desacato, roubo, etc..."
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderDescription() {
+    const { descricao } = this.state;
+    return (
+      <label htmlFor="descricao">
+        <br />
+        Descrição
+        <br />
+        <textarea
+          name="descricao"
+          id="descricao"
+          value={ descricao }
+          rows="4"
+          cols="50"
+          maxLength="500"
+          placeholder="Máximo de 500 caracteres"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderFine() {
+    const { multa } = this.state;
+    return (
+      <label htmlFor="multa">
+        <br />
+        Multa
+        <br />
+        <input
+          type="number"
+          id="multa"
+          value={ multa }
+          name="multa"
+          min="0"
+          placeholder="Valor da multa"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderJailTime() {
+    const { tempoPrisao } = this.state;
+    return (
+      <label htmlFor="tempoPrisao">
+        <br />
+        Tempo de prisão
+        <br />
+        <input
+          type="number"
+          value={ tempoPrisao }
+          id="tempoPrisao"
+          name="tempoPrisao"
+          min="0"
+          placeholder="Tempo em meses"
+          onChange={ (e) => this.handleChange(e) }
+        />
+      </label>
+    );
+  }
+
+  renderStatus() {
+    const { status } = this.state;
+    return (
+      <label htmlFor="status">
+        <br />
+        Status
+        <br />
+        <select
+          id="status"
+          name="status"
+          value={ status }
+          onChange={ (e) => this.handleChange(e) }
+        >
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </label>
+    );
+  }
+
+  renderBtns() {
     const { codeList } = this.props;
     return (
-      <form className="new-code-form">
-        <label htmlFor="nome">
-          Nome:
-          <input
-            type="text"
-            value={ nome }
-            id="nome"
-            name="nome"
-            placeholder="Ex: Desacato, etc..."
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="descricao">
-          Descrição:
-          <textarea
-            name="descricao"
-            id="descricao"
-            value={ descricao }
-            rows="4"
-            cols="50"
-            maxLength="500"
-            placeholder="Máximo de 500 caracteres"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="multa">
-          Multa:
-          <input
-            type="number"
-            id="multa"
-            value={ multa }
-            name="multa"
-            placeholder="Valor da multa"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="tempoPrisao">
-          Tempo de prisão:
-          <input
-            type="number"
-            value={ tempoPrisao }
-            id="tempoPrisao"
-            name="tempoPrisao"
-            placeholder="Tempo em meses"
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="status">
-          Status:
-          <select
-            id="status"
-            name="status"
-            value={ status }
-            onChange={ (e) => this.handleChange(e) }
-          >
-            <option>1</option>
-            <option>2</option>
-          </select>
-        </label>
+      <section>
         <button
           type="submit"
           onClick={ (e) => this.handleSubmit(e, codeList) }
         >
-          Editar
+          Confirmar
         </button>
+        <HomepageBtn />
+      </section>
+    );
+  }
+
+  render() {
+    return (
+      <form>
+        {
+          this.renderName()
+        }
+        {
+          this.renderDescription()
+        }
+        {
+          this.renderFine()
+        }
+        {
+          this.renderJailTime()
+        }
+        {
+          this.renderStatus()
+        }
+        {
+          this.renderBtns()
+        }
+        {
+          this.confirmationSpan()
+        }
       </form>
     );
   }
@@ -134,12 +225,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewCode: (newCode) => dispatch(addNewCodeAction(newCode)),
+  editCode: (newCode) => dispatch(updateCodeListsAction(newCode)),
 });
 
 EditCodeForm.propTypes = {
   codeList: PropTypes.array.isRequired,
-  addNewCode: PropTypes.func.isRequired,
+  editCode: PropTypes.func.isRequired,
   identifier: PropTypes.string.isRequired,
 };
 

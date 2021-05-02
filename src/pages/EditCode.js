@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EditCodeForm from '../components/EditCodeForm';
-import HomepageBtn from '../components/HomepageBtn';
+
+import { CodeFormsBody } from '../styles';
 
 class EditCode extends React.Component {
   render() {
     const { match: { params: { id } } } = this.props;
     return (
-      <>
+      <CodeFormsBody>
         <header>
           <h1>Edição de código</h1>
         </header>
         <main>
           <EditCodeForm identifier={ id } />
-          <HomepageBtn />
         </main>
-      </>
+      </CodeFormsBody>
     );
   }
 }
