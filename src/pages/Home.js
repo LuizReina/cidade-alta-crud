@@ -9,6 +9,8 @@ import Filters from '../components/Filters';
 
 import { HomeStyle } from '../styles';
 
+const NUMBER_OF_RESULTS_PER_PAGE = 15;
+
 class Home extends React.Component {
   render() {
     const { filteredCodeList } = this.props;
@@ -16,13 +18,13 @@ class Home extends React.Component {
       <HomeStyle>
         <header>
           <h1>Código Penal</h1>
-          <Filters />
+          <Filters pages={ NUMBER_OF_RESULTS_PER_PAGE } />
         </header>
         <main>
           {
             filteredCodeList.length <= 0
               ? <NoCodeList />
-              : <PenalCodeTable />
+              : <PenalCodeTable pages={ NUMBER_OF_RESULTS_PER_PAGE } />
           }
           <AddCodeBtn />
         </main>

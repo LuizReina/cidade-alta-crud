@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import backgroundLogin from './imgs/wallpaper.jpg';
 import backgroundHome from './imgs/wallpaperPolice.jpg';
 
-export const LoginStyle = styled.body`
+export const LoginStyle = styled.main`
   align-items: center;
   background-image: url(${backgroundLogin});
   display: flex;
@@ -135,6 +135,20 @@ export const HomeStyle = styled.main`
     margin: auto;
     text-decoration: none;
   }
+
+  footer {
+    text-align: center;
+  }
+`;
+
+export const ActiveFilters = styled.p`
+  background-color: lightgray;
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 6px;
+  padding: 0.5vh;
+  /* width: 15vw; */
 `;
 
 export const BtnExcluir = styled.button`
@@ -152,7 +166,7 @@ export const BtnFiltrar = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 2vh;
-  margin: 1.5vh 1vw 3vh;
+  margin: 1.5vh 1vw 1vh;
   padding: 0.3vh 0.5vw;
   width: 7vw;
   transition: 0.8s all ease-out;
@@ -186,25 +200,21 @@ export const AddCodeBtnStyle = styled.section`
   }
 `;
 
-export const PaginationBtns = styled.footer`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-
-  button {
-    background-color: transparent;
-    border: solid 1px red;
-    border-radius: 100%;
-    color: black;
-    cursor: pointer;
-    font-weight: 700;
-    margin: 1vh 0.3vw;
-    transition: 0.5s all ease-out;
-    &:hover {
-      color: white;
-      background-color: ${(props) => (props.primary ? 'black' : 'red')};
-      border: ${(props) => (props.primary ? '1px solid lightblue' : '1px solid black')};
-    }
+export const PaginationBtns = styled.button`
+  background-color: ${(props) => (props.actualPage === props.children
+    ? 'red' : 'transparent')};;
+  border: solid 1px red;
+  border-radius: 100%;
+  color: white;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 1vh 0.3vw;
+  transition: 0.3s all ease-out;
+  &:hover {
+    color: white;
+    background-color: red;
+    border: 1px solid black;
   }
 `;
 
@@ -223,13 +233,13 @@ export const CodeFormsBody = styled.main`
 
   section {
     flex-direction: row;
-    margin: 3vh;
+    margin: 3vh 3vh 0px;
   }
 
   input, textarea {
     font-size: 18px;
     height: 2vh;
-    margin: 8px 0;
+    margin: 4px 0;
     padding: 0.8vh;
     width: 20vw;
   }
@@ -254,7 +264,7 @@ export const CodeFormsBody = styled.main`
     border-radius: 5px;
     color: black;
     font-size: 25px;
-    margin: 10px;
+    margin: 10px 10px 5px;
     padding: 5px 10px;
     text-decoration: none;
     transition: 0.8s all ease-out;
@@ -283,6 +293,7 @@ export const CodeFormsBody = styled.main`
 
 export const CodeDetailsBody = styled.main`
   align-items: center;
+  background-color: lightgray;
   display: flex;
   flex-direction: column;
   height: 98vh;

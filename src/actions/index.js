@@ -1,4 +1,6 @@
 export const UPDATE_CODE_LISTS = 'UPDATE_CODE_LISTS';
+export const UPDATE_PAGINATION_LIST = 'UPDATE_PAGINATION_LIST';
+export const UPDATE_PAGE_NUMBER = 'UPDATE_PAGE_NUMBER';
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
 export const LOG_IN = 'LOG_IN';
@@ -87,3 +89,13 @@ export const filterCodeListThunk = (codeList,
     return '';
   }
 };
+
+export const updatePaginationListAction = (data = []) => ({
+  type: UPDATE_PAGINATION_LIST,
+  payload: data,
+});
+
+export const updateActualPageAction = (pageNumber) => ({
+  type: UPDATE_PAGE_NUMBER,
+  payload: pageNumber,
+});
