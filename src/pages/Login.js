@@ -51,7 +51,7 @@ class Login extends React.Component {
       const haveUser = userList
         .some((user) => user.nome === nome && user.senha === senha);
       if (haveUser) {
-        this.getData();
+        // this.getData();
         logInStarted(nome);
         return;
       }
