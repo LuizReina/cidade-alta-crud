@@ -101,6 +101,7 @@ class Filters extends React.Component {
             name="ordenacao"
             value="crescente"
             onChange={ (e) => this.handleChange(e) }
+            checked
           />
           Crescente
         </label>
@@ -153,7 +154,6 @@ class Filters extends React.Component {
 const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
   filteredCodeList: state.data.codigoPenalFiltrado,
-  filters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({

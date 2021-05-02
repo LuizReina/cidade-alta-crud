@@ -49,12 +49,12 @@ class PenalCodeTable extends React.Component {
   renderTableBody() {
     const { deleteCode } = this.props;
     const { codeList } = this.props;
-    const { paginaAtual, paginationCodeList } = this.props;
+    const { actualPage, paginationCodeList } = this.props;
     const confirmation = 'Você quer mesmo fazer isso? Essa ação não poderá ser desfeita.';
     return (
       <tbody>
         {
-          paginationCodeList[paginaAtual]
+          paginationCodeList[actualPage]
             .map(({ id, nome, dataCriacao, multa, status }) => (
               <tr
                 key={ nome }
@@ -89,26 +89,30 @@ class PenalCodeTable extends React.Component {
   }
 
   renderPaginationBtns() {
-    const { filteredCodeList, updateActualPage, pages } = this.props;
+    const { filteredCodeList, updateActualPage, pages, actualPage } = this.props;
     const totalPages = Math.ceil(filteredCodeList.length / pages);
     const paginationBtns = [];
     for (let index = 1; index <= totalPages; index += 1) {
+      console.log('key', index, 'actualPage', actualPage);
       paginationBtns.push(
-        <button
+        <PaginationBtns
+          actualPage={ actualPage + 1 }
           key={ index }
           type="button"
           onClick={ () => updateActualPage(index) }
         >
           {index}
-        </button>,
+        </PaginationBtns>,
       );
     }
     return (
-      <PaginationBtns>
+      <footer>
         {
-          paginationBtns.map((element) => element)
+          paginationBtns.length > 1
+            ? paginationBtns.map((element) => element)
+            : ''
         }
-      </PaginationBtns>
+      </footer>
     );
   }
 
@@ -135,7 +139,7 @@ const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
   filteredCodeList: state.data.codigoPenalFiltrado,
   paginationCodeList: state.data.codigoPenalPaginado,
-  paginaAtual: state.user.paginaAtual,
+  actualPage: state.user.paginaAtual,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -150,7 +154,7 @@ PenalCodeTable.propTypes = {
   filteredCodeList: PropTypes.array.isRequired,
   paginationCodeList: PropTypes.array.isRequired,
   deleteCode: PropTypes.func.isRequired,
-  paginaAtual: PropTypes.number.isRequired,
+  actualPage: PropTypes.number.isRequired,
   updatePaginationList: PropTypes.func.isRequired,
   updateActualPage: PropTypes.func.isRequired,
   pages: PropTypes.number.isRequired,
