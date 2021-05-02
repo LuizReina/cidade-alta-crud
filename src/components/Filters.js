@@ -18,6 +18,7 @@ class Filters extends React.Component {
     this.state = {
       palavraChave: '',
       filtro: 'nome',
+      status: '',
       ordenacao: 'crescente',
     };
   }
@@ -42,22 +43,26 @@ class Filters extends React.Component {
   }
 
   async handleChange({ target: { name, value } }) {
+    if (name === 'status') {
+      value = value.slice(0, 1);
+    }
     this.setState({
       [name]: await value.toLowerCase(),
     }, () => {});
-    if (name === 'palavraChave') this.handleSubmit();
+    this.handleSubmit();
   }
 
   async handleSubmit() {
-    const { palavraChave, filtro, ordenacao } = this.state;
+    const { palavraChave, filtro, ordenacao, status } = this.state;
+    console.log('dentro do handleSubmit', filtro);
     const {
       includeFilters,
       codeList,
       filterCodeList,
       updateActualPage,
     } = this.props;
-    await includeFilters({ palavraChave, filtro, ordenacao });
-    await filterCodeList(codeList, palavraChave, filtro, ordenacao);
+    await includeFilters({ palavraChave, filtro, status, ordenacao });
+    await filterCodeList(codeList, palavraChave, filtro, status, ordenacao);
     await updateActualPage(1);
     this.updatePagination();
   }
@@ -78,16 +83,27 @@ class Filters extends React.Component {
   }
 
   renderFilterType() {
-    const filterTypes = ['Nome', 'Multa', 'Status'];
+    const filterTypes = ['', 'Nome', 'Multa'];
+    const statusTypes = ['', '1 - Ativo', '2 - Inativo'];
     return (
-      <label htmlFor="filtro">
-        Filtrar por:
-        <select id="filtro" name="filtro" onChange={ (e) => this.handleChange(e) }>
-          {
-            filterTypes.map((filter) => <option key={ filter }>{filter}</option>)
-          }
-        </select>
-      </label>
+      <>
+        <label htmlFor="filtro">
+          Filtrar por:
+          <select id="filtro" name="filtro" onChange={ (e) => this.handleChange(e) }>
+            {
+              filterTypes.map((filter) => <option key={ filter }>{filter}</option>)
+            }
+          </select>
+        </label>
+        <label htmlFor="status">
+          Status:
+          <select name="status" onChange={ (e) => this.handleChange(e) }>
+            {
+              statusTypes.map((filter) => <option key={ filter }>{filter}</option>)
+            }
+          </select>
+        </label>
+      </>
     );
   }
 
@@ -125,6 +141,7 @@ class Filters extends React.Component {
         {
           this.renderKeyWord()
         }
+        <br />
         {
           this.renderFilterType()
         }
@@ -141,8 +158,8 @@ class Filters extends React.Component {
         <ActiveFilters>
           {
             `${palavraChave.length === 0
-              ? 'Filtros ativos: '
-              : `Filtros ativos: ${palavraChave} | `} ${filtro} | ${ordenacao}`
+              ? 'Filtros ativos: ' : `Filtros ativos: ${palavraChave} | `
+            } ${filtro} | ${ordenacao}`
           }
         </ActiveFilters>
       </>

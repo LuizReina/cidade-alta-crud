@@ -117,8 +117,8 @@ export const HomeStyle = styled.main`
   }
 
   th, td {
+    background-color: white;
     border: solid 2px gray;
-    color: white;
     text-align: center;
     width: 6vw;
   }
@@ -141,6 +141,12 @@ export const HomeStyle = styled.main`
   }
 `;
 
+export const Td = styled.td`
+  color: ${(props) => (props.id === 1
+    ? 'green' : 'red')};
+  font-weight: 700;
+`;
+
 export const ActiveFilters = styled.p`
   background-color: lightgray;
   color: black;
@@ -148,7 +154,6 @@ export const ActiveFilters = styled.p`
   font-weight: 700;
   margin-left: 6px;
   padding: 0.5vh;
-  /* width: 15vw; */
 `;
 
 export const BtnExcluir = styled.button`
@@ -255,7 +260,7 @@ export const CodeFormsBody = styled.main`
   select {
     font-size: 18px;
     padding: 0.2vh 0.5vh;
-    width: 50px;
+    width: 120px;
   }
 
   a, button {
@@ -285,7 +290,7 @@ export const CodeFormsBody = styled.main`
   }
 
   span {
-    color: red;
+    color: green;
     font-size: 2vh;
     font-weight: 700;
   }
