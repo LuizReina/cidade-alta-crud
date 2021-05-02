@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -13,11 +12,11 @@ class NewCodeForm extends React.Component {
     super();
 
     this.state = {
-      id: '',
+      id: 0,
       nome: '',
       descricao: '',
-      multa: '',
-      tempoPrisao: '',
+      multa: 0,
+      tempoPrisao: 0,
       status: 1,
       isConfirmed: false,
     };
@@ -31,6 +30,7 @@ class NewCodeForm extends React.Component {
 
   handleSubmit(e, codeList) {
     e.preventDefault();
+    this.confirmEdit();
     const { addNewCode } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
@@ -45,34 +45,21 @@ class NewCodeForm extends React.Component {
     };
     const newCodeList = Object.assign([], codeList);
     newCodeList.push(newCode);
-    if (
-      id === '' || nome === '' || descricao === '' || multa === '' || tempoPrisao === ''
-    ) return alert('Todos os campos são obrigatórios.');
-    this.confirmEdit();
     addNewCode(newCodeList);
   }
 
   confirmEdit() {
-    this.setState({
-      id: '',
-      nome: '',
-      descricao: '',
-      multa: '',
-      tempoPrisao: '',
-      status: 1,
-      isConfirmed: true,
-    });
+    this.setState({ isConfirmed: true });
     setTimeout(() => { this.setState({ isConfirmed: false }); }, THREE_SECONDS);
   }
 
   confirmationSpan() {
     const { isConfirmed } = this.state;
-    if (isConfirmed) return <span>Código adicionado com sucesso!</span>;
+    if (isConfirmed) return <span>Código alterado com sucesso!</span>;
     return '';
   }
 
   renderId() {
-    const { id } = this.state;
     return (
       <label htmlFor="id">
         <br />
@@ -80,8 +67,8 @@ class NewCodeForm extends React.Component {
         <br />
         <input
           type="number"
+          id="id"
           name="id"
-          value={ id }
           min="0"
           placeholder="Número identificador"
           onChange={ (e) => this.handleChange(e) }
@@ -91,7 +78,6 @@ class NewCodeForm extends React.Component {
   }
 
   renderName() {
-    const { nome } = this.state;
     return (
       <label htmlFor="nome">
         <br />
@@ -99,8 +85,8 @@ class NewCodeForm extends React.Component {
         <br />
         <input
           type="text"
+          id="nome"
           name="nome"
-          value={ nome }
           placeholder="Ex: Desacato, etc..."
           onChange={ (e) => this.handleChange(e) }
         />
@@ -109,15 +95,14 @@ class NewCodeForm extends React.Component {
   }
 
   renderDescription() {
-    const { descricao } = this.state;
     return (
       <label htmlFor="descricao">
         <br />
         Descrição:
         <br />
         <textarea
+          id="descricao"
           name="descricao"
-          value={ descricao }
           rows="4"
           cols="50"
           maxLength="500"
@@ -129,7 +114,6 @@ class NewCodeForm extends React.Component {
   }
 
   renderFine() {
-    const { multa } = this.state;
     return (
       <label htmlFor="multa">
         <br />
@@ -137,8 +121,8 @@ class NewCodeForm extends React.Component {
         <br />
         <input
           type="number"
+          id="multa"
           name="multa"
-          value={ multa }
           min="0"
           placeholder="Valor da multa"
           onChange={ (e) => this.handleChange(e) }
@@ -148,7 +132,6 @@ class NewCodeForm extends React.Component {
   }
 
   renderJailTime() {
-    const { tempoPrisao } = this.state;
     return (
       <label htmlFor="tempoPrisao">
         <br />
@@ -156,8 +139,8 @@ class NewCodeForm extends React.Component {
         <br />
         <input
           type="number"
+          id="tempoPrisao"
           name="tempoPrisao"
-          value={ tempoPrisao }
           min="0"
           placeholder="Tempo em meses"
           onChange={ (e) => this.handleChange(e) }
@@ -167,17 +150,12 @@ class NewCodeForm extends React.Component {
   }
 
   renderStatus() {
-    const { status } = this.state;
     return (
       <label htmlFor="status">
         <br />
         Status:
         <br />
-        <select
-          name="status"
-          onChange={ (e) => this.handleChange(e) }
-          value={ status }
-        >
+        <select id="status" name="status" onChange={ (e) => this.handleChange(e) }>
           <option>1</option>
           <option>2</option>
         </select>

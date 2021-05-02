@@ -15,8 +15,7 @@ for (let index = 1; index <= 60; index += 1) {
 }
 
 const codigoPenalFiltrado = Object.assign([], codigoPenal);
-const codigoPenalPaginado = [[]];
 
-const INITIAL_STATE_MOCKED = { codigoPenal, codigoPenalFiltrado, codigoPenalPaginado };
+const INITAL_STATE_MOCKED = { codigoPenal, codigoPenalFiltrado };
 
-export default INITIAL_STATE_MOCKED;
+export default INITAL_STATE_MOCKED;

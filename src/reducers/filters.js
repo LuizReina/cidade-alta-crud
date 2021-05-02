@@ -4,7 +4,6 @@ const INITAL_STATE = {
   palavraChave: '',
   filtro: 'nome',
   ordenacao: 'crescente',
-  paginaAtual: 0,
 };
 
 const filterReducer = (state = INITAL_STATE, action) => {
