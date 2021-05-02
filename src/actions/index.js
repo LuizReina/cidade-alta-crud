@@ -67,17 +67,21 @@ export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispa
 };
 
 export const filterCodeListThunk = (codeList,
-  palavraChave, filtro, ordenacao) => (dispatch) => {
-  const filtroNome = codeList.filter((code) => code.nome
+  palavraChave, filtro, status, ordenacao) => (dispatch) => {
+  const filtroNome = codeList.filter((code) => code.nome // cada const realiza duas filtragens: a primeira pelo filtro principal, "nome" ou "multa" seguido do filtro secundário (ativo ou inativo)
     .toLowerCase()
-    .includes(palavraChave.toLowerCase()));
+    .includes(palavraChave.toLowerCase()))
+    .filter((filteredCode) => filteredCode.status
+      .toString().includes(status));
+
   const filtroMulta = codeList.filter((code) => parseInt(code.multa, 10)
-    .toFixed(2)
-    .toString()
-    .includes(palavraChave));
+    .toFixed(2).toString().includes(palavraChave))
+    .filter((filteredCode) => filteredCode.status
+      .toString().includes(status));
+
   const filtroStatus = codeList.filter((code) => code.status
-    .toString()
-    .includes(palavraChave));
+    .toString().includes(status));
+
   switch (filtro) {
   case 'nome':
     return dispatch(sortCodeListThunk(filtroNome, ordenacao, filtro));
@@ -86,7 +90,7 @@ export const filterCodeListThunk = (codeList,
   case 'status':
     return dispatch(sortCodeListThunk(filtroStatus, ordenacao, filtro));
   default:
-    return '';
+    return dispatch(sortCodeListThunk(filtroStatus, ordenacao, 'id'));
   }
 };
 

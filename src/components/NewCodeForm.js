@@ -18,12 +18,15 @@ class NewCodeForm extends React.Component {
       descricao: '',
       multa: '',
       tempoPrisao: '',
-      status: 1,
+      status: '1 - Ativo',
       isConfirmed: false,
     };
   }
 
   handleChange({ target: { name, value } }) {
+    if (name === 'status') {
+      value = value.slice(0, 1);
+    }
     this.setState({
       [name]: value,
     });
@@ -176,7 +179,7 @@ class NewCodeForm extends React.Component {
         <select
           name="status"
           onChange={ (e) => this.handleChange(e) }
-          value={ status }
+          value={ `${status === '1' ? '1 - Ativo' : '2 - Inativo'}` }
         >
           <option>1</option>
           <option>2</option>

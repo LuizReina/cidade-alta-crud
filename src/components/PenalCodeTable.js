@@ -11,7 +11,7 @@ import {
   updateActualPageAction,
 } from '../actions';
 
-import { BtnExcluir, PaginationBtns } from '../styles';
+import { BtnExcluir, PaginationBtns, Td } from '../styles';
 
 class PenalCodeTable extends React.Component {
   componentDidMount() {
@@ -62,7 +62,7 @@ class PenalCodeTable extends React.Component {
                 <td>{nome}</td>
                 <td>{dataCriacao}</td>
                 <td>{`R$${parseInt(multa, 10).toFixed(2)}`}</td>
-                <td>{status === 1 ? 'Ativo' : 'Inativo'}</td>
+                <Td id={ status }>{status === 1 ? 'Ativo' : 'Inativo'}</Td>
                 <td>
                   <Link to={ `/editcode/${id}` }>
                     <span role="img" aria-labelledby="symbol of a hand editing">✍</span>
@@ -71,8 +71,11 @@ class PenalCodeTable extends React.Component {
                 <td>
                   <BtnExcluir
                     type="button"
-                    onClick={ () => {
-                      if (window.confirm(confirmation)) deleteCode(id, codeList);
+                    onClick={ async () => {
+                      if (window.confirm(confirmation)) {
+                        await deleteCode(id, codeList);
+                        this.updatePagination();
+                      }
                     } }
                   >
                     ✘

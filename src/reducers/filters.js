@@ -2,7 +2,8 @@ import { INCLUDE_FILTERS } from '../actions';
 
 const INITAL_STATE = {
   palavraChave: '',
-  filtro: 'nome',
+  filtro: 'id',
+  status: '',
   ordenacao: 'crescente',
   paginaAtual: 0,
 };
