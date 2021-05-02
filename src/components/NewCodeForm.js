@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addNewCodeAction } from '../actions';
+import { updateCodeListsAction } from '../actions';
 
 import './newCodeForm.css';
 
@@ -40,7 +40,7 @@ class NewCodeForm extends React.Component {
       tempoPrisao: parseInt(tempoPrisao, 10),
       status: parseInt(status, 10),
     };
-    const newCodeList = Object.assign(codeList);
+    const newCodeList = Object.assign([], codeList);
     newCodeList.push(newCode);
     addNewCode(newCodeList);
     e.preventDefault();
@@ -124,7 +124,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewCode: (newCode) => dispatch(addNewCodeAction(newCode)),
+  addNewCode: (newCode) => dispatch(updateCodeListsAction(newCode)),
 });
 
 NewCodeForm.propTypes = {

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
-import { loginAction, saveReduxDataAction } from '../actions';
+import { loginAction, saveFullCodeListAction } from '../actions';
 import { fetchData } from '../services/apiRequest';
 
 import { LoginStyle } from '../styles';
@@ -20,11 +20,11 @@ class Login extends React.Component {
   }
 
   getData() {
-    const { saveReduxData } = this.props;
+    const { saveFullCodeList } = this.props;
     const fetchAndDispatchData = async () => {
       const penalCodeFetched = await fetchData('codigopenal');
       const dataFetched = penalCodeFetched;
-      saveReduxData(dataFetched);
+      saveFullCodeList(dataFetched);
     };
     fetchAndDispatchData();
   }
@@ -100,11 +100,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loggingIn: (nome) => dispatch(loginAction(nome)),
-  saveReduxData: (data) => dispatch(saveReduxDataAction(data)),
+  saveFullCodeList: (data) => dispatch(saveFullCodeListAction(data)),
 });
 
 Login.propTypes = {
-  saveReduxData: PropTypes.func.isRequired,
+  saveFullCodeList: PropTypes.func.isRequired,
   loggingIn: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
 };

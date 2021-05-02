@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addNewCodeAction } from '../actions';
+import { updateCodeListsAction } from '../actions';
 
 import './newCodeForm.css';
 
@@ -38,20 +38,20 @@ class EditCodeForm extends React.Component {
     });
   }
 
-  handleChange({ target }) {
+  handleChange({ target: { name, value } }) {
     this.setState({
-      [target.name]: target.value,
+      [name]: value,
     });
   }
 
   handleSubmit(e, codeList) {
-    const { addNewCode } = this.props;
+    const { editCode } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
     const newCode = { id, nome, descricao, dataCriacao, multa, tempoPrisao, status };
     const newCodeList = codeList.filter((code) => code.id !== id);
     newCodeList.push(newCode);
-    addNewCode(newCodeList);
+    editCode(newCodeList);
     e.preventDefault();
   }
 
@@ -134,12 +134,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewCode: (newCode) => dispatch(addNewCodeAction(newCode)),
+  editCode: (newCode) => dispatch(updateCodeListsAction(newCode)),
 });
 
 EditCodeForm.propTypes = {
   codeList: PropTypes.array.isRequired,
-  addNewCode: PropTypes.func.isRequired,
+  editCode: PropTypes.func.isRequired,
   identifier: PropTypes.string.isRequired,
 };
 

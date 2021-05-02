@@ -1,6 +1,5 @@
-export const SAVE_REDUX_DATA = 'SAVE_REDUX_DATA';
-export const DELETE_CODE = 'DELETE_CODE';
-export const ADD_CODE = 'ADD_CODE';
+export const SAVE_FULL_CODE_LIST = 'SAVE_FULL_CODE_LIST';
+export const UPDATE_CODE_LISTS = 'UPDATE_CODE_LISTS';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const INCLUDE_FILTERS = 'INCLUDE_FILTERS';
@@ -9,8 +8,8 @@ export const UPDATE_FILTERED_LIST = 'UPDATE_FILTERED_LIST';
 const NEGATIVE_ORDER = -1;
 const POSITIVE_ORDER = 1;
 
-export const saveReduxDataAction = (data) => ({
-  type: SAVE_REDUX_DATA,
+export const saveFullCodeListAction = (data) => ({
+  type: SAVE_FULL_CODE_LIST,
   payload: data,
 });
 
@@ -23,10 +22,15 @@ export const logoutAction = () => ({
   type: LOG_OUT,
 });
 
-export const addNewCodeAction = (data) => ({
-  type: ADD_CODE,
+export const updateCodeListsAction = (data) => ({
+  type: UPDATE_CODE_LISTS,
   payload: data,
 });
+
+export const deleteCodeActionThunk = (id, codeList) => (dispatch) => {
+  const codeAfterDeletion = codeList.filter((code) => code.id !== id);
+  dispatch(updateCodeListsAction(codeAfterDeletion));
+};
 
 export const includeFiltersAction = (filters) => ({
   type: INCLUDE_FILTERS,
@@ -78,14 +82,4 @@ export const filterCodeListThunk = (codeList,
   default:
     return '';
   }
-};
-
-export const deleteCodeAction = (data) => ({
-  type: DELETE_CODE,
-  payload: data,
-});
-
-export const deleteCodeActionThunk = (id, codeList) => (dispatch) => {
-  const codeAfterDeletion = codeList.filter((code) => code.id !== id);
-  dispatch(deleteCodeAction(codeAfterDeletion));
 };
