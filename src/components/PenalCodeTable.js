@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { deleteCodeActionThunk, filterCodeListThunk } from '../actions';
 
+import { BtnExcluir } from '../styles';
+
 class PenalCodeTable extends React.Component {
   componentDidMount() {
     const {
@@ -19,15 +21,15 @@ class PenalCodeTable extends React.Component {
   render() {
     const { deleteCode } = this.props;
     const { codeList, filteredCodeList } = this.props;
+    const confirmation = 'Você quer mesmo fazer isso? Essa ação não poderá ser desfeita.';
+    const headersTabela = ['Nome', 'Data', 'Multa',
+      'Status', 'Editar', 'Excluir', 'Detalhes'];
     return (
       <div>
         <table>
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Data</th>
-              <th>Multa</th>
-              <th>Status</th>
+              {headersTabela.map((header) => <th key={ header }>{ header }</th>)}
             </tr>
           </thead>
           <tbody>
@@ -36,27 +38,23 @@ class PenalCodeTable extends React.Component {
                 <tr key={ id }>
                   <td>{nome}</td>
                   <td>{dataCriacao}</td>
-                  <td>{multa}</td>
+                  <td>{`R$${multa.toFixed(2)}`}</td>
                   <td>{status === 1 ? 'Ativo' : 'Inativo'}</td>
                   <td>
-                    <Link to={ `/editcode/${id}` }>Editar</Link>
+                    <Link to={ `/editcode/${id}` }>✍</Link>
                   </td>
                   <td>
-                    <button
+                    <BtnExcluir
                       type="button"
                       onClick={ () => {
-                        if (window.confirm(
-                          'Tem certeza disso? Essa ação não pode ser desfeita.',
-                        )) {
-                          deleteCode(id, codeList);
-                        }
+                        if (window.confirm(confirmation)) deleteCode(id, codeList);
                       } }
                     >
-                      Excluir
-                    </button>
+                      ✘
+                    </BtnExcluir>
                   </td>
                   <td>
-                    <Link to={ `/codedetails/${id}` }>Detalhes</Link>
+                    <Link to={ `/codedetails/${id}` }>⁉</Link>
                   </td>
                 </tr>
               ))

@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import { loginAction, saveReduxDataAction } from '../actions';
 import { fetchData } from '../services/apiRequest';
 
+import { LoginStyle } from '../styles';
+import logo from '../imgs/logo.png';
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -58,32 +61,35 @@ class Login extends React.Component {
     const { nome, senha } = this.state;
     const { authenticated } = this.props;
     return (
-      <main>
-        <label htmlFor="nome">
-          Nome:
-          <input
-            type="text"
-            name="nome"
-            value={ nome }
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <label htmlFor="senha">
-          Senha:
-          <input
-            type="password"
-            name="senha"
-            value={ senha }
-            onChange={ (e) => this.handleChange(e) }
-          />
-        </label>
-        <button type="submit" onClick={ (e) => this.handleSubmit(e) }>Acessar!</button>
-        {
-          authenticated
-            ? <Redirect to="/home" />
-            : ''
-        }
-      </main>
+      <LoginStyle>
+        <section>
+          <img src={ logo } alt="logotipo cidade alta - season 2" />
+          <label htmlFor="nome">
+            Nome:
+            <input
+              type="text"
+              name="nome"
+              value={ nome }
+              onChange={ (e) => this.handleChange(e) }
+            />
+          </label>
+          <label htmlFor="senha">
+            Senha:
+            <input
+              type="password"
+              name="senha"
+              value={ senha }
+              onChange={ (e) => this.handleChange(e) }
+            />
+          </label>
+          <button type="submit" onClick={ (e) => this.handleSubmit(e) }>Acessar!</button>
+          {
+            authenticated
+              ? <Redirect to="/home" />
+              : ''
+          }
+        </section>
+      </LoginStyle>
     );
   }
 }

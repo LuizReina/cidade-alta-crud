@@ -1,6 +1,24 @@
 import { SAVE_REDUX_DATA, DELETE_CODE, ADD_CODE, UPDATE_FILTERED_LIST } from '../actions';
 
 const INITAL_STATE = {
+  // codigoPenal: [{
+  //   id: 1,
+  //   nome: 'Baguncinha',
+  //   descricao: 'Baguncinha na california',
+  //   dataCriacao: 1994,
+  //   multa: 15000,
+  //   tempoPrisao: 30,
+  //   status: 1,
+  // }],
+  // codigoPenalFiltrado: [{
+  //   id: 1,
+  //   nome: 'Baguncinha',
+  //   descricao: 'Baguncinha na california',
+  //   dataCriacao: 1994,
+  //   multa: 15000,
+  //   tempoPrisao: 30,
+  //   status: 1,
+  // }],
   codigoPenal: [],
   codigoPenalFiltrado: [],
   status: [],
