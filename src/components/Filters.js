@@ -101,7 +101,6 @@ class Filters extends React.Component {
             name="ordenacao"
             value="crescente"
             onChange={ (e) => this.handleChange(e) }
-            checked
           />
           Crescente
         </label>
