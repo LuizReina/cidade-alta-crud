@@ -5,8 +5,10 @@ for (let index = 1; index <= 60; index += 1) {
   const codigo = {
     id: index,
     nome: `${index}`,
-    descricao: 'Baguncinha na california',
-    dataCriacao: 2021,
+    descricao: `Desacato, desobediência ou desrespeito perante um tribunal ou oficiais da
+    policia na forma de comportamento que se opõe ou desafia a autoridade, a justiça e a
+    dignidade do tribunal. Um réu só pode ser cobrado uma vez por desacato`,
+    dataCriacao: `201${(Math.ceil(Math.random() * 9))}`,
     multa: (Math.ceil(Math.random() * 10000)),
     tempoPrisao: (Math.ceil(Math.random() * 120)),
     status: (Math.ceil(Math.random() * 2)),

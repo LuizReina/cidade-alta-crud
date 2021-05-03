@@ -50,7 +50,7 @@ export const CodeDetailsBody = styled.main`
 
   p {
     color: rebeccapurple;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: 700;
   }
 
@@ -81,11 +81,37 @@ export const CodeDetailsBody = styled.main`
     }
 
     h2 {
-      font-size: 30px;
+      font-size: 28px;
     }
 
     p {
-      font-size: 28px;
+      font-size: 25px;
+    }
+
+    footer {
+      height: 10vh;
+    }    
+  }
+
+  @media screen and (max-width: 650px) {
+    header {
+      font-size: 15px;
+    }
+
+    main {
+      height: 80vh;
+    }
+
+    h2, p {
+      padding: 5px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 15px;
     }
 
     footer {

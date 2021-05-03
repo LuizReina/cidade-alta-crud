@@ -10,10 +10,11 @@ import {
   startLoadingAction,
   stopLoadingAction,
 } from '../actions';
+
 import { fetchData } from '../services/apiRequest';
 
-import { LoginStyle } from '../styles/stylesLogin';
 import logo from '../imgs/logo.png';
+import { LoginStyle } from '../styles/stylesLogin';
 
 class Login extends React.Component {
   constructor() {
@@ -29,8 +30,7 @@ class Login extends React.Component {
     const { saveApiResponse } = this.props;
     const fetchAndDispatchData = async () => {
       const penalCodeFetched = await fetchData('codigopenal');
-      const dataFetched = penalCodeFetched;
-      saveApiResponse(dataFetched);
+      saveApiResponse(penalCodeFetched);
     };
     fetchAndDispatchData();
   }
@@ -51,7 +51,7 @@ class Login extends React.Component {
       const haveUser = userList
         .some((user) => user.nome === nome && user.senha === senha);
       if (haveUser) {
-        // this.getData();
+        this.getData();
         logInStarted(nome);
         return;
       }

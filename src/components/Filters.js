@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -9,7 +11,7 @@ import {
   updateActualPageAction,
 } from '../actions';
 
-import { ActiveFilters } from '../styles';
+import { ActiveFilters } from '../styles/stylesHome';
 
 class Filters extends React.Component {
   constructor(props) {

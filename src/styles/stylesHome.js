@@ -164,7 +164,8 @@ export const ActiveFilters = styled.p`
   color: black;
   font-size: 18px;
   font-weight: 700;
-  padding: 5px;
+  margin: 2% auto;
+  padding: 0.5vh;
   width: 30%;
 
   @media screen and (max-width: 1024px) {
@@ -212,7 +213,7 @@ export const AddCodeBtnStyle = styled.div`
     a {
       font-size: 10px;
       height: 5vh;
-      width: 35vw;
+      width: 40vw;
     }
   }
 `;
@@ -240,5 +241,21 @@ export const PaginationBtns = styled.button`
     color: white;
     background-color: red;
     border: 1px solid black;
+  }
+`;
+
+export const NoCodeMsg = styled.h3`
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  text-shadow: black;
+
+  @media screen and (max-width: 1024px) {
+    
+  }
+
+  @media screen and (max-width: 650px) {
+    text-align: center;
+    font-size: 20px;
   }
 `;
