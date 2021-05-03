@@ -74,7 +74,7 @@ export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispa
 };
 
 export const filterCodeListThunk = (codeList,
-  palavraChave, filtro, status, ordenacao) => (dispatch) => {
+  { palavraChave, filtro, status, ordenacao }) => (dispatch) => {
   const filtroNome = codeList.filter((code) => code.nome // cada const realiza duas filtragens: a primeira pelo filtro principal, "nome" ou "multa" seguido do filtro secundário (ativo ou inativo)
     .includes(palavraChave))
     .filter((filteredCode) => filteredCode.status

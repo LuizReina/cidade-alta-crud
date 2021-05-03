@@ -29,6 +29,7 @@ class EditCodeForm extends React.Component {
   fillInputsForEditing() {
     const { identifier, codeList } = this.props;
     const codeToEdit = codeList.filter((code) => code.id === parseInt(identifier, 10));
+    console.log(codeToEdit);
     this.setState({
       id: codeToEdit[0].id,
       nome: codeToEdit[0].nome,
@@ -169,7 +170,7 @@ class EditCodeForm extends React.Component {
         <select
           id="status"
           name="status"
-          value={ `${status === '1' ? '1 - Ativo' : '2 - Inativo'}` }
+          value={ `${status === 1 ? '1 - Ativo' : '2 - Inativo'}` }
           onChange={ (e) => this.handleChange(e) }
         >
           <option>1 - Ativo</option>

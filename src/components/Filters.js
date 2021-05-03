@@ -18,8 +18,8 @@ class Filters extends React.Component {
     this.state = {
       palavraChave: props.activeFilters.palavraChave,
       filtro: props.activeFilters.filtro,
-      status: '',
-      ordenacao: 'Crescente',
+      status: props.activeFilters.status,
+      ordenacao: props.activeFilters.ordenacao,
     };
   }
 
@@ -61,9 +61,16 @@ class Filters extends React.Component {
       updateActualPage,
     } = this.props;
     await includeFilters({ palavraChave, filtro, status, ordenacao });
-    await filterCodeList(codeList, palavraChave, filtro, status, ordenacao);
+    await filterCodeList(codeList, { palavraChave, filtro, status, ordenacao });
     await updateActualPage(1);
     this.updatePagination();
+  }
+
+  checkStatus() {
+    const { status } = this.state;
+    if (status === '1') return '1 - Ativo';
+    if (status === '2') return '2 - Inativo';
+    return '';
   }
 
   renderKeyWord() {
@@ -102,7 +109,11 @@ class Filters extends React.Component {
         </label>
         <label htmlFor="status">
           Status:
-          <select name="status" onChange={ (e) => this.handleChange(e) }>
+          <select
+            name="status"
+            value={ this.checkStatus() }
+            onChange={ (e) => this.handleChange(e) }
+          >
             {
               statusTypes.map((filter) => <option key={ filter }>{filter}</option>)
             }
@@ -113,6 +124,7 @@ class Filters extends React.Component {
   }
 
   renderRadioBtns() {
+    const { ordenacao } = this.state;
     return (
       <>
         <label htmlFor="crescente">
@@ -122,6 +134,7 @@ class Filters extends React.Component {
             name="ordenacao"
             value="Crescente"
             onChange={ (e) => this.handleChange(e) }
+            checked={ ordenacao === 'Crescente' ? true : false }
           />
           Crescente
         </label>
@@ -132,6 +145,7 @@ class Filters extends React.Component {
             name="ordenacao"
             value="Decrescente"
             onChange={ (e) => this.handleChange(e) }
+            checked={ ordenacao === 'Decrescente' ? true : false }
           />
           Decrescente
         </label>
@@ -140,7 +154,8 @@ class Filters extends React.Component {
   }
 
   render() {
-    const { activeFilters: { palavraChave, filtro, status, ordenacao } } = this.props;
+    const {
+      activeFilters: { palavraChave, filtro, status, ordenacao } } = this.props;
     return (
       <>
         {
@@ -178,7 +193,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   includeFilters: (filters) => dispatch(includeFiltersAction(filters)),
-  filterCodeList: (...data) => dispatch(filterCodeListThunk(...data)),
+  filterCodeList: (codeList, filters) => dispatch(filterCodeListThunk(codeList, filters)),
   updatePaginationList: (pageNumber) => dispatch(updatePaginationListAction(pageNumber)),
   updateActualPage: (pageNumber) => dispatch(updateActualPageAction(pageNumber)),
 });
