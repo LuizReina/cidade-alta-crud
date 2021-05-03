@@ -1,9 +1,10 @@
+/* eslint-disable max-lines */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HomepageBtn from './HomepageBtn';
-import { updateCodeListsAction } from '../actions';
+import { updateCodeListsAction, includeFiltersAction } from '../actions';
 
 const THREE_SECONDS = 3000;
 
@@ -51,8 +52,7 @@ class EditCodeForm extends React.Component {
 
   handleSubmit(e, codeList) {
     e.preventDefault();
-    this.confirmEdit();
-    const { editCode } = this.props;
+    const { editCode, includeFilters } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
     const newCode = {
@@ -66,6 +66,14 @@ class EditCodeForm extends React.Component {
     };
     const newCodeList = codeList.filter((code) => code.id !== id);
     newCodeList.push(newCode);
+    this.confirmEdit();
+    includeFilters({
+      palavraChave: '',
+      filtro: '',
+      status: '',
+      ordenacao: 'Crescente',
+      paginaAtual: 0,
+    });
     editCode(newCodeList);
   }
 
@@ -230,11 +238,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   editCode: (newCode) => dispatch(updateCodeListsAction(newCode)),
+  includeFilters: (filters) => dispatch(includeFiltersAction(filters)),
 });
 
 EditCodeForm.propTypes = {
   codeList: PropTypes.array.isRequired,
   editCode: PropTypes.func.isRequired,
+  includeFilters: PropTypes.func.isRequired,
   identifier: PropTypes.string.isRequired,
 };
 

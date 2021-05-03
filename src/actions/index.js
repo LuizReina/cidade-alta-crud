@@ -63,10 +63,8 @@ export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispa
       ? NEGATIVE_ORDER : POSITIVE_ORDER));
   switch (ordenacao) {
   case 'Crescente':
-    console.log(filtro, ordenacao);
     return dispatch(updateSortedListAction(filtroCrescente));
   case 'Decrescente':
-    console.log(filtro, ordenacao);
     return dispatch(updateSortedListAction(filtroDecrescente));
   default:
     return '';

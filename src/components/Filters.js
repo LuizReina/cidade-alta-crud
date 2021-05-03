@@ -206,7 +206,7 @@ Filters.propTypes = {
   updatePaginationList: PropTypes.func.isRequired,
   updateActualPage: PropTypes.func.isRequired,
   pages: PropTypes.number.isRequired,
-  activeFilters: PropTypes.array.isRequired,
+  activeFilters: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
