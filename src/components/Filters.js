@@ -12,14 +12,14 @@ import {
 import { ActiveFilters } from '../styles';
 
 class Filters extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      palavraChave: '',
-      filtro: 'nome',
-      status: '',
-      ordenacao: 'crescente',
+      palavraChave: props.activeFilters.palavraChave,
+      filtro: props.activeFilters.filtro,
+      status: props.activeFilters.status,
+      ordenacao: props.activeFilters.ordenacao,
     };
   }
 
@@ -47,7 +47,7 @@ class Filters extends React.Component {
       value = value.slice(0, 1);
     }
     this.setState({
-      [name]: await value.toLowerCase(),
+      [name]: await value,
     }, () => {});
     this.handleSubmit();
   }
@@ -61,9 +61,16 @@ class Filters extends React.Component {
       updateActualPage,
     } = this.props;
     await includeFilters({ palavraChave, filtro, status, ordenacao });
-    await filterCodeList(codeList, palavraChave, filtro, status, ordenacao);
+    await filterCodeList(codeList, { palavraChave, filtro, status, ordenacao });
     await updateActualPage(1);
     this.updatePagination();
+  }
+
+  checkStatus() {
+    const { status } = this.state;
+    if (status === '1') return '1 - Ativo';
+    if (status === '2') return '2 - Inativo';
+    return '';
   }
 
   renderKeyWord() {
@@ -82,13 +89,19 @@ class Filters extends React.Component {
   }
 
   renderFilterType() {
+    const { filtro } = this.state;
     const filterTypes = ['', 'Nome', 'Multa'];
     const statusTypes = ['', '1 - Ativo', '2 - Inativo'];
     return (
       <>
         <label htmlFor="filtro">
           Filtrar por:
-          <select id="filtro" name="filtro" onChange={ (e) => this.handleChange(e) }>
+          <select
+            id="filtro"
+            name="filtro"
+            value={ filtro }
+            onChange={ (e) => this.handleChange(e) }
+          >
             {
               filterTypes.map((filter) => <option key={ filter }>{filter}</option>)
             }
@@ -96,7 +109,11 @@ class Filters extends React.Component {
         </label>
         <label htmlFor="status">
           Status:
-          <select name="status" onChange={ (e) => this.handleChange(e) }>
+          <select
+            name="status"
+            value={ this.checkStatus() }
+            onChange={ (e) => this.handleChange(e) }
+          >
             {
               statusTypes.map((filter) => <option key={ filter }>{filter}</option>)
             }
@@ -107,6 +124,7 @@ class Filters extends React.Component {
   }
 
   renderRadioBtns() {
+    const { ordenacao } = this.state;
     return (
       <>
         <label htmlFor="crescente">
@@ -114,8 +132,9 @@ class Filters extends React.Component {
             type="radio"
             id="crescente"
             name="ordenacao"
-            value="crescente"
+            value="Crescente"
             onChange={ (e) => this.handleChange(e) }
+            checked={ ordenacao === 'Crescente' ? true : false }
           />
           Crescente
         </label>
@@ -124,8 +143,9 @@ class Filters extends React.Component {
             type="radio"
             id="decrescente"
             name="ordenacao"
-            value="decrescente"
+            value="Decrescente"
             onChange={ (e) => this.handleChange(e) }
+            checked={ ordenacao === 'Decrescente' ? true : false }
           />
           Decrescente
         </label>
@@ -134,7 +154,8 @@ class Filters extends React.Component {
   }
 
   render() {
-    const { palavraChave, filtro, ordenacao } = this.state;
+    const {
+      activeFilters: { palavraChave, filtro, status, ordenacao } } = this.props;
     return (
       <>
         {
@@ -153,8 +174,9 @@ class Filters extends React.Component {
           <span>
             {
               `${palavraChave.length === 0
-                ? 'Filtros ativos: ' : `Filtros ativos: ${palavraChave} | `
-              } ${filtro} | ${ordenacao}`
+                ? 'Filtros ativos: ' : `Filtros ativos: ${palavraChave} | `}
+               ${filtro === '' ? '' : `${filtro} | `} ${ordenacao}
+               ${status === '1' ? '| Ativo' : status === '2' ? '| Inativo' : ''}`
             }
           </span>
         </ActiveFilters>
@@ -166,11 +188,12 @@ class Filters extends React.Component {
 const mapStateToProps = (state) => ({
   codeList: state.data.codigoPenal,
   filteredCodeList: state.data.codigoPenalFiltrado,
+  activeFilters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   includeFilters: (filters) => dispatch(includeFiltersAction(filters)),
-  filterCodeList: (...data) => dispatch(filterCodeListThunk(...data)),
+  filterCodeList: (codeList, filters) => dispatch(filterCodeListThunk(codeList, filters)),
   updatePaginationList: (pageNumber) => dispatch(updatePaginationListAction(pageNumber)),
   updateActualPage: (pageNumber) => dispatch(updateActualPageAction(pageNumber)),
 });
@@ -183,6 +206,7 @@ Filters.propTypes = {
   updatePaginationList: PropTypes.func.isRequired,
   updateActualPage: PropTypes.func.isRequired,
   pages: PropTypes.number.isRequired,
+  activeFilters: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

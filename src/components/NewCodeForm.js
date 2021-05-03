@@ -1,10 +1,11 @@
+/* eslint-disable max-lines */
 /* eslint-disable no-alert */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HomepageBtn from './HomepageBtn';
-import { updateCodeListsAction } from '../actions';
+import { updateCodeListsAction, includeFiltersAction } from '../actions';
 
 const THREE_SECONDS = 3000;
 
@@ -34,7 +35,7 @@ class NewCodeForm extends React.Component {
 
   handleSubmit(e, codeList) {
     e.preventDefault();
-    const { addNewCode } = this.props;
+    const { addNewCode, includeFilters } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
     const dataCriacao = new Date().toLocaleString();
     const newCode = {
@@ -52,6 +53,13 @@ class NewCodeForm extends React.Component {
       id === '' || nome === '' || descricao === '' || multa === '' || tempoPrisao === ''
     ) return alert('Todos os campos são obrigatórios.');
     this.confirmEdit();
+    includeFilters({
+      palavraChave: '',
+      filtro: '',
+      status: '',
+      ordenacao: 'Crescente',
+      paginaAtual: 0,
+    });
     addNewCode(newCodeList);
   }
 
@@ -241,11 +249,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addNewCode: (newCode) => dispatch(updateCodeListsAction(newCode)),
+  includeFilters: (filters) => dispatch(includeFiltersAction(filters)),
 });
 
 NewCodeForm.propTypes = {
   codeList: PropTypes.array.isRequired,
   addNewCode: PropTypes.func.isRequired,
+  includeFilters: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewCodeForm);
