@@ -92,37 +92,6 @@ export const CodeDetailsBody = styled.main`
       height: 10vh;
     }    
   }
-
-  @media screen and (max-width: 650px) {
-    header {
-      height: 10vh;
-      font-size: 15px;
-    }
-
-    main {
-      height: 80vh;
-    }
-
-    h2, p {
-      padding: 5px 0;
-    }
-
-    h2 {
-      font-size: 18px;
-    }
-
-    p {
-      font-size: 15px;
-    }
-
-    footer {
-      height: 10vh;
-    }
-
-    a {
-      font-size: 20px;
-    }
-  }
 `;
 
 export const debug = styled.body``;

@@ -18,7 +18,7 @@ export const LoginStyle = styled.main`
     height: 70%;
     justify-content: center;
     opacity: 0.95;
-    width: 20%;
+    width: 30%;
   }
 
   img {
@@ -67,6 +67,12 @@ export const LoginStyle = styled.main`
 
   input {
     margin: 0vh 1vw;
+  }
+
+  @media screen and (max-width: 1600px) {
+    main {
+      width: 45%
+    }
   }
 
   @media screen and (max-width: 1024px) {
