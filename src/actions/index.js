@@ -50,16 +50,23 @@ export const updateSortedListAction = (data) => ({
 
 export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispatch) => {
   if (filteredCodeList === undefined) return;
+  if (filtro === '') {
+    filtro = 'id';
+  }
   const filtroDecrescente = Object.assign([], filteredCodeList);
   filtroDecrescente
-    .sort((b, a) => (a[filtro] < b[filtro] ? NEGATIVE_ORDER : POSITIVE_ORDER));
+    .sort((b, a) => (a[filtro.toLowerCase()] < b[filtro.toLowerCase()]
+      ? NEGATIVE_ORDER : POSITIVE_ORDER));
   const filtroCrescente = Object.assign([], filteredCodeList);
   filtroCrescente
-    .sort((a, b) => (a[filtro] < b[filtro] ? NEGATIVE_ORDER : POSITIVE_ORDER));
+    .sort((a, b) => (a[filtro.toLowerCase()] < b[filtro.toLowerCase()]
+      ? NEGATIVE_ORDER : POSITIVE_ORDER));
   switch (ordenacao) {
-  case 'crescente':
+  case 'Crescente':
+    console.log(filtro, ordenacao);
     return dispatch(updateSortedListAction(filtroCrescente));
-  case 'decrescente':
+  case 'Decrescente':
+    console.log(filtro, ordenacao);
     return dispatch(updateSortedListAction(filtroDecrescente));
   default:
     return '';
@@ -69,8 +76,7 @@ export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispa
 export const filterCodeListThunk = (codeList,
   palavraChave, filtro, status, ordenacao) => (dispatch) => {
   const filtroNome = codeList.filter((code) => code.nome // cada const realiza duas filtragens: a primeira pelo filtro principal, "nome" ou "multa" seguido do filtro secundário (ativo ou inativo)
-    .toLowerCase()
-    .includes(palavraChave.toLowerCase()))
+    .includes(palavraChave))
     .filter((filteredCode) => filteredCode.status
       .toString().includes(status));
 
@@ -83,14 +89,14 @@ export const filterCodeListThunk = (codeList,
     .toString().includes(status));
 
   switch (filtro) {
-  case 'nome':
+  case 'Nome':
     return dispatch(sortCodeListThunk(filtroNome, ordenacao, filtro));
-  case 'multa':
+  case 'Multa':
     return dispatch(sortCodeListThunk(filtroMulta, ordenacao, filtro));
   case 'status':
     return dispatch(sortCodeListThunk(filtroStatus, ordenacao, filtro));
   default:
-    return dispatch(sortCodeListThunk(filtroStatus, ordenacao, 'id'));
+    return dispatch(sortCodeListThunk(filtroStatus, ordenacao, ''));
   }
 };
 
