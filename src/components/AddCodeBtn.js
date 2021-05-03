@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { AddCodeBtnStyle } from '../styles';
+import { AddCodeBtnStyle } from '../styles/stylesHome';
 
 class AddCodeBtn extends React.Component {
   render() {

@@ -14,7 +14,7 @@ import {
 import editIcon from '../imgs/editIcon.png';
 import deleteIcon from '../imgs/deleteIcon.png';
 import detailsIcon from '../imgs/detailsIcon.png';
-import { Td, PaginationBtns, BtnExcluir } from '../styles';
+import { Td, PaginationBtns, BtnExcluir } from '../styles/stylesHome';
 
 class PenalCodeTable extends React.Component {
   componentDidMount() {
