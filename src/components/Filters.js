@@ -150,11 +150,13 @@ class Filters extends React.Component {
         }
         <br />
         <ActiveFilters>
-          {
-            `${palavraChave.length === 0
-              ? 'Filtros ativos: ' : `Filtros ativos: ${palavraChave} | `
-            } ${filtro} | ${ordenacao}`
-          }
+          <span>
+            {
+              `${palavraChave.length === 0
+                ? 'Filtros ativos: ' : `Filtros ativos: ${palavraChave} | `
+              } ${filtro} | ${ordenacao}`
+            }
+          </span>
         </ActiveFilters>
       </>
     );

@@ -10,8 +10,8 @@ export const HomeStyle = styled.main`
 
   header {
     align-items: center;
+    height: 28vh;
     justify-content: center;
-    height: 25vh;
     text-align: center;
     width: 100%;
   }
@@ -25,7 +25,7 @@ export const HomeStyle = styled.main`
     align-items: center;
     color: lightgray;
     font-size: 18px;
-    margin: 5px;
+    margin: 0 5px;
   }
 
   input {
@@ -34,10 +34,19 @@ export const HomeStyle = styled.main`
     padding: 0.1vh 0.5vw;
   }
 
+  select {
+    margin: 5px 0;
+  }
+
+  span {
+    margin: 0px;
+  }
+
   main {
     align-items: center;
     display: flex;
     flex-direction: column;
+    height: 55vh;
     width: 100%;
   }
 
@@ -45,10 +54,9 @@ export const HomeStyle = styled.main`
     align-items: center;
     display: flex;
     flex-direction: column;
+    height: 100%;
     justify-content: top;
-    margin-top: 1%;
-    height: 55vh;
-    width: 30%;
+    width: 60%;
   }
 
   img {
@@ -70,19 +78,19 @@ export const HomeStyle = styled.main`
     background-color: white;
     border: solid 2px gray;
     text-align: center;
-    width: 40%;
+    width: 30%;
   }
   
   td {
     align-items: top;
-    font-size: 15px;
+    font-size: 17px;
   }
 
   footer {
     align-items: top;
     display: flex;
     justify-content: center;
-    height: 20vh;
+    height: 15vh;
     width: 100%;
   }
 
@@ -93,6 +101,18 @@ export const HomeStyle = styled.main`
   }
 
   @media screen and (max-width: 650px) {
+    img {
+      height: 15px;
+      width: 15px;
+    }
+
+    main {
+      height: 60vh;
+    }
+
+    footer {
+      height: 10vh;
+    }
     label {
       font-size: 12px;
     }
@@ -106,10 +126,13 @@ export const HomeStyle = styled.main`
     }
 
     section {
-      /* background-color: yellow; */
       margin-top: 5%;
       height: 60vh;
       width: 90%;
+    }
+
+    table {
+      height: 85%;
     }
 
     th {
@@ -125,7 +148,7 @@ export const HomeStyle = styled.main`
     
     td {
       align-items: top;
-      font-size: 8px;
+      font-size: 9px;
     }
   }
 `;
@@ -141,8 +164,7 @@ export const ActiveFilters = styled.p`
   color: black;
   font-size: 18px;
   font-weight: 700;
-  margin: 2% auto;
-  padding: 0.5vh;
+  padding: 5px;
   width: 30%;
 
   @media screen and (max-width: 1024px) {
