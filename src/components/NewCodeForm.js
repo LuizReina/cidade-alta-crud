@@ -18,7 +18,7 @@ class NewCodeForm extends React.Component {
       descricao: '',
       multa: '',
       tempoPrisao: '',
-      status: '1 - Ativo',
+      status: '1',
       isConfirmed: false,
     };
   }
@@ -62,7 +62,7 @@ class NewCodeForm extends React.Component {
       descricao: '',
       multa: '',
       tempoPrisao: '',
-      status: 1,
+      status: '1',
       isConfirmed: true,
     });
     setTimeout(() => { this.setState({ isConfirmed: false }); }, THREE_SECONDS);
@@ -79,7 +79,7 @@ class NewCodeForm extends React.Component {
     return (
       <label htmlFor="id">
         <br />
-        Id:
+        Id
         <br />
         <input
           type="number"
@@ -98,7 +98,7 @@ class NewCodeForm extends React.Component {
     return (
       <label htmlFor="nome">
         <br />
-        Nome:
+        Nome
         <br />
         <input
           type="text"
@@ -116,7 +116,7 @@ class NewCodeForm extends React.Component {
     return (
       <label htmlFor="descricao">
         <br />
-        Descrição:
+        Descrição
         <br />
         <textarea
           name="descricao"
@@ -136,7 +136,7 @@ class NewCodeForm extends React.Component {
     return (
       <label htmlFor="multa">
         <br />
-        Multa:
+        Multa
         <br />
         <input
           type="number"
@@ -155,7 +155,7 @@ class NewCodeForm extends React.Component {
     return (
       <label htmlFor="tempoPrisao">
         <br />
-        Tempo de prisão:
+        Tempo de prisão
         <br />
         <input
           type="number"
@@ -174,15 +174,15 @@ class NewCodeForm extends React.Component {
     return (
       <label htmlFor="status">
         <br />
-        Status:
+        Status
         <br />
         <select
           name="status"
           onChange={ (e) => this.handleChange(e) }
           value={ `${status === '1' ? '1 - Ativo' : '2 - Inativo'}` }
         >
-          <option>1</option>
-          <option>2</option>
+          <option>1 - Ativo</option>
+          <option>2 - Inativo</option>
         </select>
       </label>
     );

@@ -12,7 +12,7 @@ import {
 } from '../actions';
 import { fetchData } from '../services/apiRequest';
 
-import { LoginStyle } from '../styles';
+import { LoginStyle } from '../styles/stylesLogin';
 import logo from '../imgs/logo.png';
 
 class Login extends React.Component {
@@ -70,27 +70,29 @@ class Login extends React.Component {
     const { authenticated, isLoading } = this.props;
     return (
       <LoginStyle>
-        <section>
+        <main>
           <img src={ logo } alt="logotipo cidade alta - season 2" />
-          <label htmlFor="nome">
-            Nome:
-            <input
-              type="text"
-              name="nome"
-              value={ nome }
-              onChange={ (e) => this.handleChange(e) }
-            />
-          </label>
-          <label htmlFor="senha">
-            Senha:
-            <input
-              type="password"
-              name="senha"
-              value={ senha }
-              onChange={ (e) => this.handleChange(e) }
-            />
-          </label>
-          <button type="submit" onClick={ (e) => this.handleSubmit(e) }>Acessar!</button>
+          <section>
+            <label htmlFor="nome">
+              Nome
+              <input
+                type="text"
+                name="nome"
+                value={ nome }
+                onChange={ (e) => this.handleChange(e) }
+              />
+            </label>
+            <label htmlFor="senha">
+              Senha
+              <input
+                type="password"
+                name="senha"
+                value={ senha }
+                onChange={ (e) => this.handleChange(e) }
+              />
+            </label>
+          </section>
+          <button type="submit" onClick={ (e) => this.handleSubmit(e) }>Acessar</button>
           {
             isLoading
               ? <Loading />
@@ -101,7 +103,7 @@ class Login extends React.Component {
               ? <Redirect to="/home" />
               : ''
           }
-        </section>
+        </main>
       </LoginStyle>
     );
   }

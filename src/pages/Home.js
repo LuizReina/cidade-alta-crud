@@ -7,9 +7,9 @@ import NoCodeList from '../components/NoCodeList';
 import AddCodeBtn from '../components/AddCodeBtn';
 import Filters from '../components/Filters';
 
-import { HomeStyle } from '../styles';
+import { HomeStyle } from '../styles/stylesHome';
 
-const NUMBER_OF_RESULTS_PER_PAGE = 15;
+const NUMBER_OF_RESULTS_PER_PAGE = 10;
 
 class Home extends React.Component {
   render() {
@@ -26,8 +26,10 @@ class Home extends React.Component {
               ? <NoCodeList />
               : <PenalCodeTable pages={ NUMBER_OF_RESULTS_PER_PAGE } />
           }
-          <AddCodeBtn />
         </main>
+        <footer>
+          <AddCodeBtn />
+        </footer>
       </HomeStyle>
     );
   }

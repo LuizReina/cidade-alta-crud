@@ -1,7 +1,7 @@
 import React from 'react';
 import loading from '../imgs/loading.gif';
 
-import { Img } from '../styles';
+import { Img } from '../styles/stylesLogin';
 
 class Loading extends React.Component {
   render() {

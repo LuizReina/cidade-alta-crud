@@ -11,7 +11,10 @@ import {
   updateActualPageAction,
 } from '../actions';
 
-import { BtnExcluir, PaginationBtns, Td } from '../styles';
+import editIcon from '../imgs/editIcon.png';
+import deleteIcon from '../imgs/deleteIcon.png';
+import detailsIcon from '../imgs/detailsIcon.png';
+import { Td, PaginationBtns, BtnExcluir } from '../styles';
 
 class PenalCodeTable extends React.Component {
   componentDidMount() {
@@ -65,7 +68,7 @@ class PenalCodeTable extends React.Component {
                 <Td id={ status }>{status === 1 ? 'Ativo' : 'Inativo'}</Td>
                 <td>
                   <Link to={ `/editcode/${id}` }>
-                    <span role="img" aria-labelledby="symbol of a hand editing">✍</span>
+                    <img src={ editIcon } alt="edit symbol" />
                   </Link>
                 </td>
                 <td>
@@ -78,11 +81,13 @@ class PenalCodeTable extends React.Component {
                       }
                     } }
                   >
-                    ✘
+                    <img src={ deleteIcon } alt="delete symbol" />
                   </BtnExcluir>
                 </td>
                 <td>
-                  <Link to={ `/codedetails/${id}` }>⁉</Link>
+                  <Link to={ `/codedetails/${id}` }>
+                    <img src={ detailsIcon } alt="see more details symbol" />
+                  </Link>
                 </td>
               </tr>
             ))
@@ -96,12 +101,11 @@ class PenalCodeTable extends React.Component {
     const totalPages = Math.ceil(filteredCodeList.length / pages);
     const paginationBtns = [];
     for (let index = 1; index <= totalPages; index += 1) {
-      console.log('key', index, 'actualPage', actualPage);
       paginationBtns.push(
         <PaginationBtns
+          type="button"
           actualPage={ actualPage + 1 }
           key={ index }
-          type="button"
           onClick={ () => updateActualPage(index) }
         >
           {index}
@@ -109,19 +113,19 @@ class PenalCodeTable extends React.Component {
       );
     }
     return (
-      <footer>
+      <div>
         {
           paginationBtns.length > 1
             ? paginationBtns.map((element) => element)
             : ''
         }
-      </footer>
+      </div>
     );
   }
 
   render() {
     return (
-      <div>
+      <section>
         <table>
           {
             this.renderTableHeader()
@@ -133,7 +137,7 @@ class PenalCodeTable extends React.Component {
         {
           this.renderPaginationBtns()
         }
-      </div>
+      </section>
     );
   }
 }
