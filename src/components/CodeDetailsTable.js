@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
-import HomepageBtn from './HomepageBtn';
 
 class CodeDetailsTable extends React.Component {
   constructor() {
@@ -49,23 +48,22 @@ class CodeDetailsTable extends React.Component {
     return (
       existsID
         ? (
-          <section>
-            <h2>ID: </h2>
+          <main>
+            <h2>ID</h2>
             <p>{id}</p>
-            <h2>Nome: </h2>
+            <h2>Nome</h2>
             <p>{nome}</p>
-            <h2>Descrição: </h2>
+            <h2>Descrição</h2>
             <p>{descricao}</p>
-            <h2>Multa: </h2>
+            <h2>Multa</h2>
             <p>{`R$ ${multa.toFixed(2)}`}</p>
-            <h2>Tempo de prisão: </h2>
+            <h2>Tempo de prisão</h2>
             <p>{`${tempoPrisao} meses`}</p>
-            <h2>Status: </h2>
+            <h2>Status</h2>
             <p>{status === 1 ? 'Ativo' : 'Inativo'}</p>
-            <h2>Data de criação: </h2>
+            <h2>Data de criação</h2>
             <p>{dataCriacao}</p>
-            <HomepageBtn />
-          </section>
+          </main>
         )
         : <Redirect to="/notfound" />
     );

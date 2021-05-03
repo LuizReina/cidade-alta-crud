@@ -9,7 +9,7 @@ import {
   updateActualPageAction,
 } from '../actions';
 
-import { BtnFiltrar, ActiveFilters } from '../styles';
+import { ActiveFilters } from '../styles';
 
 class Filters extends React.Component {
   constructor() {
@@ -54,7 +54,6 @@ class Filters extends React.Component {
 
   async handleSubmit() {
     const { palavraChave, filtro, ordenacao, status } = this.state;
-    console.log('dentro do handleSubmit', filtro);
     const {
       includeFilters,
       codeList,
@@ -145,16 +144,11 @@ class Filters extends React.Component {
         {
           this.renderFilterType()
         }
+        <br />
         {
           this.renderRadioBtns()
         }
         <br />
-        <BtnFiltrar
-          type="button"
-          onClick={ () => this.handleSubmit() }
-        >
-          Filtrar
-        </BtnFiltrar>
         <ActiveFilters>
           {
             `${palavraChave.length === 0

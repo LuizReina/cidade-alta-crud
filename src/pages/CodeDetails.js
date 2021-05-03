@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CodeDetailsTable from '../components/CodeDetailsTable';
+import HomepageBtn from '../components/HomepageBtn';
 
-import { CodeDetailsBody } from '../styles';
+
+import { CodeDetailsBody } from '../styles/stylesDetails';
 
 class CodeDetails extends React.Component {
   render() {
@@ -12,9 +14,10 @@ class CodeDetails extends React.Component {
         <header>
           <h1>Informações gerais</h1>
         </header>
-        <main>
-          <CodeDetailsTable identifier={ id } />
-        </main>
+        <CodeDetailsTable identifier={ id } />
+        <footer>
+          <HomepageBtn />
+        </footer>
       </CodeDetailsBody>
     );
   }
