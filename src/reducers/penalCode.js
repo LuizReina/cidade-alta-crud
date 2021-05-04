@@ -3,7 +3,7 @@ import {
   UPDATE_FILTERED_LIST,
   UPDATE_PAGINATION_LIST,
 } from '../actions';
-// import INITIAL_STATE_MOCKED from '../mockedData';
+import INITIAL_STATE_MOCKED from '../mockedData';
 
 const INITIAL_STATE = {
   codigoPenal: [],

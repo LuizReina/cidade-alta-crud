@@ -33,11 +33,6 @@ export const updateCodeListsAction = (data) => ({
   payload: data,
 });
 
-export const deleteCodeActionThunk = (id, codeList) => (dispatch) => {
-  const codeAfterDeletion = codeList.filter((code) => code.id !== id);
-  dispatch(updateCodeListsAction(codeAfterDeletion));
-};
-
 export const includeFiltersAction = (filters) => ({
   type: INCLUDE_FILTERS,
   payload: filters,
@@ -108,3 +103,9 @@ export const updateActualPageAction = (pageNumber) => ({
   type: UPDATE_PAGE_NUMBER,
   payload: pageNumber,
 });
+
+export const deleteCodeActionThunk = (id, codeList, activeFilters) => (dispatch) => {
+  const codeAfterDeletion = codeList.filter((code) => code.id !== id);
+  dispatch(updateCodeListsAction(codeAfterDeletion));
+  dispatch(filterCodeListThunk(codeAfterDeletion, activeFilters));
+};

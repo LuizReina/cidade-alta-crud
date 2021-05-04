@@ -24,6 +24,12 @@ class CodeDetailsTable extends React.Component {
     this.mapDetails();
   }
 
+  convertData(dataCriacao) {
+    const newDate = new Date(dataCriacao);
+    const fullDate = `${newDate.toLocaleDateString()} ${newDate.toLocaleTimeString()}`;
+    return fullDate;
+  }
+
   mapDetails() {
     const { identifier, codeList } = this.props;
     const codeDetails = codeList.find((code) => code.id === parseInt(identifier, 10));
@@ -62,7 +68,7 @@ class CodeDetailsTable extends React.Component {
             <h2>Status</h2>
             <p>{status === 1 ? 'Ativo' : 'Inativo'}</p>
             <h2>Data de criação</h2>
-            <p>{dataCriacao}</p>
+            <p>{this.convertData(dataCriacao)}</p>
           </main>
         )
         : <Redirect to="/notfound" />

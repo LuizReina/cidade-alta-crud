@@ -18,13 +18,13 @@ class Home extends React.Component {
       <HomeStyle>
         <header>
           <h1>Código Penal</h1>
-          <Filters pages={ NUMBER_OF_RESULTS_PER_PAGE } />
+          <Filters resultsPerPage={ NUMBER_OF_RESULTS_PER_PAGE } />
         </header>
         <main>
           {
             filteredCodeList.length <= 0
               ? <NoCodeList />
-              : <PenalCodeTable pages={ NUMBER_OF_RESULTS_PER_PAGE } />
+              : <PenalCodeTable resultsPerPage={ NUMBER_OF_RESULTS_PER_PAGE } />
           }
         </main>
         <footer>
