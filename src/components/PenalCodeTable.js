@@ -64,7 +64,7 @@ class PenalCodeTable extends React.Component {
           paginationCodeList[actualPage]
             .map(({ id, nome, dataCriacao, multa, status }) => (
               <tr
-                key={ nome }
+                key={ id }
               >
                 <td>{nome}</td>
                 <td>{ this.convertData(dataCriacao) }</td>

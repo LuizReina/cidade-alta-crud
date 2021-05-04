@@ -49,21 +49,20 @@ class EditCodeForm extends React.Component {
     });
   }
 
-  handleSubmit(e, codeList) {
+  handleSubmit(e) {
     e.preventDefault();
-    const { editCode, includeFilters } = this.props;
+    const { editCode, includeFilters, codeList } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
-    const dataCriacao = new Date();
+    const newCodeList = codeList.filter((code) => code.id !== id);
     const newCode = {
       id: parseInt(id, 10),
       nome,
       descricao,
-      dataCriacao,
+      dataCriacao: new Date().toISOString(),
       multa: parseInt(multa, 10),
       tempoPrisao: parseInt(tempoPrisao, 10),
       status: parseInt(status, 10),
     };
-    const newCodeList = codeList.filter((code) => code.id !== id);
     newCodeList.push(newCode);
     this.confirmEdit();
     includeFilters({
@@ -188,12 +187,11 @@ class EditCodeForm extends React.Component {
   }
 
   renderBtns() {
-    const { codeList } = this.props;
     return (
       <section>
         <button
           type="submit"
-          onClick={ (e) => this.handleSubmit(e, codeList) }
+          onClick={ (e) => this.handleSubmit(e) }
         >
           Confirmar
         </button>
