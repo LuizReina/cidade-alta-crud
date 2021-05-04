@@ -93,7 +93,7 @@ class Filters extends React.Component {
 
   renderFilterType() {
     const { filtro } = this.state;
-    const filterTypes = ['', 'Nome', 'Multa'];
+    const filterTypes = ['', 'Nome', 'Multa', 'Data'];
     const statusTypes = ['', '1 - Ativo', '2 - Inativo'];
     return (
       <>
