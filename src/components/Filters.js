@@ -76,7 +76,7 @@ class Filters extends React.Component {
   }
 
   renderKeyWord() {
-    const { palavraChave } = this.state;
+    const { palavraChave, filtro } = this.state;
     return (
       <label htmlFor="palavraChave">
         Palavra-chave:
@@ -85,6 +85,7 @@ class Filters extends React.Component {
           id="palavraChave"
           name="palavraChave"
           onChange={ (e) => this.handleChange(e) }
+          disabled={ !filtro }
         />
       </label>
     );
