@@ -35,6 +35,25 @@ class Login extends React.Component {
     fetchAndDispatchData();
   }
 
+  async fetchAndAuthLogin() {
+    const { nome, senha } = this.state;
+    const { login, stopLoading } = this.props;
+    const userList = await fetchData('usuarios');
+    const haveUser = userList
+      .some((user) => user.nome === nome && user.senha === senha);
+    if (haveUser) {
+      this.getData();
+      login(nome);
+      return;
+    }
+    this.setState({
+      nome: '',
+      senha: '',
+    });
+    stopLoading();
+    return alert('Nome ou senha inválidos, tente novamente.');
+  }
+
   handleChange({ target }) {
     this.setState({
       [target.name]: target.value,
@@ -42,27 +61,10 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
+    const { startLoading } = this.props;
     e.preventDefault();
-    const { nome, senha } = this.state;
-    const { login, startLoading, stopLoading } = this.props;
     startLoading();
-    const fetchAndAuthLogin = async () => {
-      const userList = await fetchData('usuarios');
-      const haveUser = userList
-        .some((user) => user.nome === nome && user.senha === senha);
-      if (haveUser) {
-        this.getData();
-        login(nome);
-        return;
-      }
-      this.setState({
-        nome: '',
-        senha: '',
-      });
-      stopLoading();
-      return alert('Nome ou senha inválidos, tente novamente.');
-    };
-    fetchAndAuthLogin();
+    this.fetchAndAuthLogin();
   }
 
   render() {

@@ -1,6 +1,5 @@
 import {
   LOG_IN,
-  LOG_OUT,
   START_LOADING,
   STOP_LOADING,
   UPDATE_PAGE_NUMBER,
@@ -26,10 +25,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case LOG_IN:
     return ({
       ...state, nome: action.payload, authenticated: true, isLoading: false,
-    });
-  case LOG_OUT:
-    return ({
-      nome: '', authenticated: false,
     });
   case UPDATE_PAGE_NUMBER:
     return ({

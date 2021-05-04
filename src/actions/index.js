@@ -4,7 +4,6 @@ export const UPDATE_PAGE_NUMBER = 'UPDATE_PAGE_NUMBER';
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
 export const LOG_IN = 'LOG_IN';
-export const LOG_OUT = 'LOG_OUT';
 export const INCLUDE_FILTERS = 'INCLUDE_FILTERS';
 export const UPDATE_FILTERED_LIST = 'UPDATE_FILTERED_LIST';
 
@@ -24,10 +23,6 @@ export const loginAction = (nome) => ({
   payload: nome,
 });
 
-export const logoutAction = () => ({
-  type: LOG_OUT,
-});
-
 export const updateCodeListsAction = (data) => ({
   type: UPDATE_CODE_LISTS,
   payload: data,
@@ -45,17 +40,16 @@ export const updateSortedListAction = (data) => ({
 
 export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispatch) => {
   if (filteredCodeList === undefined) return;
-  if (filtro === '') {
-    filtro = 'id';
-  }
+  if (filtro === '') filtro = 'id';
+  if (filtro === 'Nome') filtro = 'nome';
+  if (filtro === 'Multa') filtro = 'multa';
+  if (filtro === 'Data') filtro = 'dataCriacao';
   const filtroDecrescente = Object.assign([], filteredCodeList);
-  filtroDecrescente
-    .sort((b, a) => (a[filtro.toLowerCase()] < b[filtro.toLowerCase()]
-      ? NEGATIVE_ORDER : POSITIVE_ORDER));
   const filtroCrescente = Object.assign([], filteredCodeList);
-  filtroCrescente
-    .sort((a, b) => (a[filtro.toLowerCase()] < b[filtro.toLowerCase()]
-      ? NEGATIVE_ORDER : POSITIVE_ORDER));
+  filtroCrescente.sort((a, b) => (a[filtro] < b[filtro]
+    ? NEGATIVE_ORDER : POSITIVE_ORDER));
+  filtroDecrescente.sort((a, b) => (a[filtro] > b[filtro]
+    ? NEGATIVE_ORDER : POSITIVE_ORDER));
   switch (ordenacao) {
   case 'Crescente':
     return dispatch(updateSortedListAction(filtroCrescente));
@@ -69,12 +63,16 @@ export const sortCodeListThunk = (filteredCodeList, ordenacao, filtro) => (dispa
 export const filterCodeListThunk = (codeList,
   { palavraChave, filtro, status, ordenacao }) => (dispatch) => {
   const filtroNome = codeList.filter((code) => code.nome
-    .toLowerCase() // cada const realiza duas filtragens: a primeira pelo filtro principal, "nome" ou "multa" seguido do filtro secundário (ativo ou inativo)
-    .includes(palavraChave.toLowerCase()))
+    .toLowerCase().includes(palavraChave.toLowerCase()))
     .filter((filteredCode) => filteredCode.status
       .toString().includes(status));
 
-  const filtroMulta = codeList.filter((code) => parseInt(code.multa, 10)
+  const filtroData = codeList.filter((code) => new Date(code.dataCriacao)
+    .toLocaleDateString().includes(palavraChave))
+    .filter((filteredCode) => filteredCode.status
+      .toString().includes(status));
+
+  const filtroMulta = codeList.filter((code) => code.multa
     .toFixed(2).toString().includes(palavraChave))
     .filter((filteredCode) => filteredCode.status
       .toString().includes(status));
@@ -87,6 +85,8 @@ export const filterCodeListThunk = (codeList,
     return dispatch(sortCodeListThunk(filtroNome, ordenacao, filtro));
   case 'Multa':
     return dispatch(sortCodeListThunk(filtroMulta, ordenacao, filtro));
+  case 'Data':
+    return dispatch(sortCodeListThunk(filtroData, ordenacao, filtro));
   case 'status':
     return dispatch(sortCodeListThunk(filtroStatus, ordenacao, filtro));
   default:
