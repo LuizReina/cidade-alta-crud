@@ -33,22 +33,23 @@ class NewCodeForm extends React.Component {
     });
   }
 
-  handleSubmit(e, codeList) {
+  handleSubmit(e) {
     e.preventDefault();
-    const { addNewCode, includeFilters } = this.props;
+    const { addNewCode, includeFilters, codeList } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
-    const dataCriacao = new Date();
+    const haveId = codeList.some((code) => code.id.toString() === id);
+    const newCodeList = Object.assign([], codeList);
     const newCode = {
       id: parseInt(id, 10),
       nome,
       descricao,
-      dataCriacao,
+      dataCriacao: new Date().toISOString(),
       multa: parseInt(multa, 10),
       tempoPrisao: parseInt(tempoPrisao, 10),
       status: parseInt(status, 10),
     };
-    const newCodeList = Object.assign([], codeList);
     newCodeList.push(newCode);
+    if (haveId) return alert('ID já existente, por favor insira outro valor.');
     if (
       id === '' || nome === '' || descricao === '' || multa === '' || tempoPrisao === ''
     ) return alert('Todos os campos são obrigatórios.');
@@ -197,12 +198,11 @@ class NewCodeForm extends React.Component {
   }
 
   renderBtns() {
-    const { codeList } = this.props;
     return (
       <section>
         <button
           type="submit"
-          onClick={ (e) => this.handleSubmit(e, codeList) }
+          onClick={ (e) => this.handleSubmit(e) }
         >
           Adicionar
         </button>
