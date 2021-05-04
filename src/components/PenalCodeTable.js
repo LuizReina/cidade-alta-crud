@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
   deleteCodeActionThunk,
-  filterCodeListThunk,
   updatePaginationListAction,
   updateActualPageAction,
 } from '../actions';
@@ -22,12 +21,12 @@ class PenalCodeTable extends React.Component {
   }
 
   async updatePagination() {
-    const { filteredCodeList, updatePaginationList, pages } = this.props;
+    const { filteredCodeList, updatePaginationList, resultsPerPage } = this.props;
     const codigoPenalPaginado = [];
-    for (let index = 0; index < filteredCodeList.length; index += pages) {
+    for (let index = 0; index < filteredCodeList.length; index += resultsPerPage) {
       const pagina = [];
       filteredCodeList.map((code, indexMap) => {
-        if (index <= indexMap && indexMap - index < pages) {
+        if (index <= indexMap && indexMap - index < resultsPerPage) {
           pagina.push(code);
         }
         return '';
@@ -97,8 +96,8 @@ class PenalCodeTable extends React.Component {
   }
 
   renderPaginationBtns() {
-    const { filteredCodeList, updateActualPage, pages, actualPage } = this.props;
-    const totalPages = Math.ceil(filteredCodeList.length / pages);
+    const { filteredCodeList, updateActualPage, resultsPerPage, actualPage } = this.props;
+    const totalPages = Math.ceil(filteredCodeList.length / resultsPerPage);
     const paginationBtns = [];
     for (let index = 1; index <= totalPages; index += 1) {
       paginationBtns.push(
@@ -147,10 +146,10 @@ const mapStateToProps = (state) => ({
   filteredCodeList: state.data.codigoPenalFiltrado,
   paginationCodeList: state.data.codigoPenalPaginado,
   actualPage: state.user.paginaAtual,
+  activeFilters: state.activeFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  filterCodeList: (...data) => dispatch(filterCodeListThunk(...data)),
   deleteCode: (id, codeList) => dispatch(deleteCodeActionThunk(id, codeList)),
   updatePaginationList: (data) => dispatch(updatePaginationListAction(data)),
   updateActualPage: (pageNumber) => dispatch(updateActualPageAction(pageNumber)),
@@ -164,7 +163,7 @@ PenalCodeTable.propTypes = {
   actualPage: PropTypes.number.isRequired,
   updatePaginationList: PropTypes.func.isRequired,
   updateActualPage: PropTypes.func.isRequired,
-  pages: PropTypes.number.isRequired,
+  resultsPerPage: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PenalCodeTable);
