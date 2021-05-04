@@ -18,7 +18,7 @@ class EditCodeForm extends React.Component {
       descricao: '',
       multa: 0,
       tempoPrisao: 0,
-      status: '1 - Ativo',
+      status: '1',
       isConfirmed: false,
     };
   }
@@ -177,7 +177,7 @@ class EditCodeForm extends React.Component {
         <select
           id="status"
           name="status"
-          value={ `${status === 1 ? '1 - Ativo' : '2 - Inativo'}` }
+          value={ `${status === '1' ? '1 - Ativo' : '2 - Inativo'}` }
           onChange={ (e) => this.handleChange(e) }
         >
           <option>1 - Ativo</option>
