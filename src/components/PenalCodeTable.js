@@ -20,6 +20,12 @@ class PenalCodeTable extends React.Component {
     this.updatePagination();
   }
 
+  convertData(dataCriacao) {
+    const newDate = new Date(dataCriacao);
+    const fullDate = `${newDate.toLocaleDateString()} ${newDate.toLocaleTimeString()}`;
+    return fullDate;
+  }
+
   async updatePagination() {
     const { filteredCodeList, updatePaginationList, resultsPerPage } = this.props;
     const codigoPenalPaginado = [];
@@ -49,9 +55,8 @@ class PenalCodeTable extends React.Component {
   }
 
   renderTableBody() {
-    const { deleteCode } = this.props;
-    const { codeList } = this.props;
-    const { actualPage, paginationCodeList } = this.props;
+    const { deleteCode, codeList, actualPage,
+      paginationCodeList, activeFilters } = this.props;
     const confirmation = 'Você quer mesmo fazer isso? Essa ação não poderá ser desfeita.';
     return (
       <tbody>
@@ -62,7 +67,7 @@ class PenalCodeTable extends React.Component {
                 key={ nome }
               >
                 <td>{nome}</td>
-                <td>{dataCriacao}</td>
+                <td>{ this.convertData(dataCriacao) }</td>
                 <td>{`R$${parseInt(multa, 10).toFixed(2)}`}</td>
                 <Td id={ status }>{status === 1 ? 'Ativo' : 'Inativo'}</Td>
                 <td>
@@ -75,7 +80,7 @@ class PenalCodeTable extends React.Component {
                     type="button"
                     onClick={ async () => {
                       if (window.confirm(confirmation)) {
-                        await deleteCode(id, codeList);
+                        await deleteCode(id, codeList, activeFilters);
                         this.updatePagination();
                       }
                     } }
@@ -150,19 +155,20 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteCode: (id, codeList) => dispatch(deleteCodeActionThunk(id, codeList)),
+  deleteCode: (...data) => dispatch(deleteCodeActionThunk(...data)),
   updatePaginationList: (data) => dispatch(updatePaginationListAction(data)),
   updateActualPage: (pageNumber) => dispatch(updateActualPageAction(pageNumber)),
 });
 
 PenalCodeTable.propTypes = {
+  activeFilters: PropTypes.object.isRequired,
   codeList: PropTypes.array.isRequired,
   filteredCodeList: PropTypes.array.isRequired,
   paginationCodeList: PropTypes.array.isRequired,
   deleteCode: PropTypes.func.isRequired,
-  actualPage: PropTypes.number.isRequired,
   updatePaginationList: PropTypes.func.isRequired,
   updateActualPage: PropTypes.func.isRequired,
+  actualPage: PropTypes.number.isRequired,
   resultsPerPage: PropTypes.number.isRequired,
 };
 

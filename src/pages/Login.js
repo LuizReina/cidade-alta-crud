@@ -44,7 +44,7 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { nome, senha } = this.state;
-    const { logInStarted, startLoading, stopLoading } = this.props;
+    const { login, startLoading, stopLoading } = this.props;
     startLoading();
     const fetchAndAuthLogin = async () => {
       const userList = await fetchData('usuarios');
@@ -52,7 +52,7 @@ class Login extends React.Component {
         .some((user) => user.nome === nome && user.senha === senha);
       if (haveUser) {
         this.getData();
-        logInStarted(nome);
+        login(nome);
         return;
       }
       this.setState({
@@ -115,7 +115,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logInStarted: (nome) => dispatch(loginAction(nome)),
+  login: (nome) => dispatch(loginAction(nome)),
   startLoading: () => dispatch(startLoadingAction()),
   stopLoading: () => dispatch(stopLoadingAction()),
   saveApiResponse: (data) => dispatch(updateCodeListsAction(data)),
@@ -123,7 +123,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   saveApiResponse: PropTypes.func.isRequired,
-  logInStarted: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   startLoading: PropTypes.func.isRequired,
   stopLoading: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,

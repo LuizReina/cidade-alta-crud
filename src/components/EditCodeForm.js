@@ -36,7 +36,7 @@ class EditCodeForm extends React.Component {
       descricao: codeToEdit[0].descricao,
       multa: codeToEdit[0].multa,
       tempoPrisao: codeToEdit[0].tempoPrisao,
-      status: codeToEdit[0].status,
+      status: codeToEdit[0].status.toString(),
     });
   }
 

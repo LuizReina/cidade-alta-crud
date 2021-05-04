@@ -26,12 +26,12 @@ class Filters extends React.Component {
   }
 
   updatePagination() {
-    const { filteredCodeList, updatePaginationList, pages } = this.props;
+    const { filteredCodeList, updatePaginationList, resultsPerPage } = this.props;
     const codigoPenalPaginado = [];
-    for (let index = 0; index < filteredCodeList.length; index += pages) {
+    for (let index = 0; index < filteredCodeList.length; index += resultsPerPage) {
       const pagina = [];
       filteredCodeList.map((code, indexMap) => {
-        if (index <= indexMap && indexMap - index < pages) {
+        if (index <= indexMap && indexMap - index < resultsPerPage) {
           pagina.push(code);
         }
         return '';
@@ -208,7 +208,7 @@ Filters.propTypes = {
   filterCodeList: PropTypes.func.isRequired,
   updatePaginationList: PropTypes.func.isRequired,
   updateActualPage: PropTypes.func.isRequired,
-  pages: PropTypes.number.isRequired,
+  resultsPerPage: PropTypes.number.isRequired,
   activeFilters: PropTypes.object.isRequired,
 };
 
