@@ -37,7 +37,7 @@ class NewCodeForm extends React.Component {
     e.preventDefault();
     const { addNewCode, includeFilters } = this.props;
     const { id, nome, descricao, multa, tempoPrisao, status } = this.state;
-    const dataCriacao = new Date().toLocaleString();
+    const dataCriacao = new Date();
     const newCode = {
       id: parseInt(id, 10),
       nome,
