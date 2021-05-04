@@ -18,7 +18,7 @@
 
 ## ✨ Funcionalidades
 
-- Visualização do arquivo de Códigos Penais
+- Visualização do arquivo de códigos penais da cidade
 - Cadastro de códigos
  - *Adição, edição e remoção de códigos penais*
 
@@ -31,10 +31,26 @@
 
 ## 💻 Frontend
 
- - Executar o comando `npm install` para fazer o download de todas as dependências necessárias para executar o projeto;
+  - Você pode acessar via web através do link de deploy:
+  https://livro-penal-cidade-alta.vercel.app/
+  
+  - Ou localmente através do seguintes comandos no terminal:
 
- - Feitos os downloads de todas as dependências, execute `npm start` para inicilizar o frontend;
+```bash
+  # Primeiramente clone o repositório para a sua máquina
+  git clone https://github.com/LuizReina/cidade-alta-crud.git
 
+  # Instale as dependências do projeto
+  npm install
+  
+  # Inicialize o projeto localmente
+  npm start
+```
+
+## Autenticação:
+  
+  - Nome: Boltz
+  - Senha: senhaboltz
 
 ## Imagens da aplicação
 > Tela de Login
