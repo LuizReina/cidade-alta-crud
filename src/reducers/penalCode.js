@@ -3,7 +3,7 @@ import {
   UPDATE_FILTERED_LIST,
   UPDATE_PAGINATION_LIST,
 } from '../actions';
-// import INITIAL_STATE_MOCKED from '../mockedData';
+import INITIAL_STATE_MOCKED from '../mockedData';
 
 const INITIAL_STATE = {
   codigoPenal: [],
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   codigoPenalPaginado: [[]],
 };
 
-const penalCodeReducer = (state = INITIAL_STATE, action) => {
+const penalCodeReducer = (state = INITIAL_STATE_MOCKED, action) => {
   switch (action.type) {
   case UPDATE_CODE_LISTS:
     return ({

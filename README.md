@@ -27,6 +27,8 @@
 ## ⚙ Tecnologias
 
  - ReactJS
+ - React Router
+ - Redux
  - Styled-Components
 
 ## 💻 Frontend
