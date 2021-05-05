@@ -30,7 +30,7 @@ class Login extends React.Component {
     const { saveApiResponse } = this.props;
     const fetchAndDispatchData = async () => {
       const penalCodeFetched = await fetchData('codigopenal');
-      saveApiResponse(penalCodeFetched);
+      await saveApiResponse(penalCodeFetched);
     };
     fetchAndDispatchData();
   }
@@ -42,7 +42,7 @@ class Login extends React.Component {
     const haveUser = userList
       .some((user) => user.nome === nome && user.senha === senha);
     if (haveUser) {
-      this.getData();
+      // this.getData();
       login(nome);
       return;
     }
