@@ -5,11 +5,11 @@ import {
 } from '../actions';
 import INITIAL_STATE_MOCKED from '../mockedData';
 
-const INITIAL_STATE = {
-  codigoPenal: [],
-  codigoPenalFiltrado: [],
-  codigoPenalPaginado: [[]],
-};
+// const INITIAL_STATE = {
+//   codigoPenal: [],
+//   codigoPenalFiltrado: [],
+//   codigoPenalPaginado: [[]],
+// };
 
 const penalCodeReducer = (state = INITIAL_STATE_MOCKED, action) => {
   switch (action.type) {
