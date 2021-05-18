@@ -31,26 +31,30 @@
  - Redux
  - Styled-Components
 
-## 💻 Frontend
+## 💻 Frontend  
 
-  - Você pode acessar via web através do link de deploy:
-  https://livro-penal-cidade-alta.vercel.app/
-  
-  - Ou localmente através do seguintes comandos no terminal:
-
-```bash
-  # Primeiramente clone o repositório para a sua máquina
+  ### Clone o repositório para a sua máquina
+  ```bash
   git clone https://github.com/LuizReina/cidade-alta-crud.git
+  ```
   
-  # Acesse a pasta do projeto
+  ### Acesse a pasta do projeto
+  ```bash
   cd cidade-alta-crud
+  ```
 
-  # Instale as dependências do projeto
+  ### Instale as dependências do projeto
+  ```bash
   npm install
+  ```
   
-  # Inicialize o projeto localmente
+  ### Inicialize o projeto localmente
+  ```bash
   npm start
-```
+  ```
+  
+  - Ou acesse via web através do link de deploy:
+  https://livro-penal-cidade-alta.vercel.app/
 
 ## Autenticação:
   
