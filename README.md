@@ -41,6 +41,9 @@
 ```bash
   # Primeiramente clone o repositório para a sua máquina
   git clone https://github.com/LuizReina/cidade-alta-crud.git
+  
+  # Acesse a pasta do projeto
+  cd cidade-alta-crud
 
   # Instale as dependências do projeto
   npm install
